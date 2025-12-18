@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Kuwait Explorer - دليل الكويت الشامل",
+  "description": "A comprehensive guide to the State of Kuwait featuring history, culture, landmarks, and an AI-powered travel assistant with image generation capabilities.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
