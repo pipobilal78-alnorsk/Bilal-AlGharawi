@@ -1,0 +1,31 @@
+name: 🛡️ Mail Sentinel 24/7 Cloud Heartbeat & Nightly Digest
+
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+    - cron: '59 21 * * *'
+  workflow_dispatch:
+
+jobs:
+  heartbeat_and_digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 🔍 Ping Sentinel Server & Check Inbox
+        run: |
+          echo "Sending 24/7 Cloud Heartbeat to keep server active..."
+          curl -s --max-time 45 https://mail-sentinel-02ai.onrender.com/api/status || true
+          curl -s --max-time 45 -X POST https://mail-sentinel-02ai.onrender.com/api/check || true
+
+      - name: 🌙 Deliver Nightly Digest Email (Guaranteed at 23:59)
+        if: github.event.schedule == '59 21 * * *' || github.event_name == 'workflow_dispatch'
+        run: |
+          echo "Executing Nightly Digest Dispatcher via GitHub Cloud..."
+          python send_digest_cloud.py
