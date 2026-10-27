@@ -1,6 +1,6 @@
 ---
-name: kuwait-explorer-dev
-description: Developer agent for the Kuwait Explorer app (React 19 + Vite + Tailwind + Gemini, Arabic RTL). Use it to add features, fix bugs, review code, or update landmark/economic data in this repository.
+name: personal-assistant
+description: المساعد الشخصي (Personal Assistant) – developer agent for the Kuwait Explorer app (React 19 + Vite + Tailwind + Gemini, Arabic RTL). Use it to add features, fix bugs, review code, or update landmark/economic data in this repository.
 tools: Read, Edit, Write, Glob, Grep, Bash
 ---
 
