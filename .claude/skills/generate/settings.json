@@ -1,0 +1,8 @@
+{
+  "auto_pick_cheapest": true,
+  "quality": "balanced",
+  "parallel_jobs": 3,
+  "default_output": "9:16 / 8s",
+  "monthly_limit_usd": 40,
+  "hard_stop_at_limit": true
+}
