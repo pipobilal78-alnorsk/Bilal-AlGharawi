@@ -6,14 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "remotion:studio": "remotion studio",
+    "remotion:render": "remotion render"
   },
   "dependencies": {
+    "@google/genai": "^1.34.0",
+    "@remotion/cli": "^4.0.539",
+    "lucide-react": "^0.562.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "@google/genai": "^1.34.0",
-    "lucide-react": "^0.562.0",
-    "recharts": "^3.6.0"
+    "recharts": "^3.6.0",
+    "remotion": "^4.0.539"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
