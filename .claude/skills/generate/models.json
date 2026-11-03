@@ -1,0 +1,6 @@
+{
+  "gpt-image": {"type": "image", "providers": {"openai": 0.04}},
+  "gemini": {"type": "image", "providers": {"google": 0.03}},
+  "grok": {"type": "image", "providers": {"xai": 0.02}},
+  "seedance-2.5": {"type": "video", "providers": {"A": 0.48, "B": 0.35, "C": 0.19}}
+}
