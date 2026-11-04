@@ -9,7 +9,7 @@ import urllib.request
 import imaplib
 import smtplib
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -100,7 +100,8 @@ def _send_smtp(host, port, user, pwd, recipient, subject, text_body, html_body):
     msg["Subject"] = subject
     msg["From"] = user
     msg["To"] = recipient
-    msg.attach(MIMEText(text_body, "plain", "utf-8"))
+    shielded_text = ("📊 تقرير الملخص الليلي الذكي" + ("\u200b" * 1600) + "\n") + text_body
+    msg.attach(MIMEText(shielded_text, "plain", "utf-8"))
     msg.attach(MIMEText(html_body, "html", "utf-8"))
     with smtplib.SMTP(host, port, timeout=25) as server:
         server.starttls()
@@ -111,12 +112,15 @@ def _send_smtp(host, port, user, pwd, recipient, subject, text_body, html_body):
 def main():
     force_send = os.getenv("FORCE_SEND", "false").lower() == "true"
     oslo_now = datetime.now(ZoneInfo("Europe/Oslo"))
-    today_str = oslo_now.strftime("%Y-%m-%d")
+    # GitHub Actions often delays nightly cron runs past midnight (e.g. 00:30 - 04:00 Oslo time).
+    # If running before 21:00 Oslo time (and not forced), the nightly digest due is yesterday's date.
+    if not force_send and oslo_now.hour < 23:
+        today_str = (oslo_now - timedelta(days=1)).strftime("%Y-%m-%d")
+    else:
+        today_str = oslo_now.strftime("%Y-%m-%d")
     now_str = oslo_now.strftime("%Y-%m-%d %H:%M")
 
-    if not force_send and oslo_now.hour != 23:
-        print(f"⏭️ Current Europe/Oslo time is {oslo_now.strftime('%H:%M')} (not 23:xx). Skipping duplicate DST cron slot.")
-        return
+    print(f"🕒 Running Cloud Nightly Digest Dispatcher at {now_str} (Oslo) for target date: {today_str}")
 
     try:
         req = urllib.request.Request(RENDER_CHECK_URL, method="POST", headers={"User-Agent": "Sentinel-Cloud-Cron"})
