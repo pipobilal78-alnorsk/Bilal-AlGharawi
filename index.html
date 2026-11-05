@@ -7,7 +7,33 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Kuwait Explorer" />
   <meta name="theme-color" content="#0284c7" />
+
+  <!-- Google Search SEO Meta Tags -->
   <title>دليل الكويت الشامل | Kuwait Explorer Pro — Pipo Al-Gharawi</title>
+  <meta name="description" content="دليل الكويت الشامل (Kuwait Explorer Pro) بإشراف وتطوير Pipo Al-Gharawi — الدليل السياحي والثقافي التفاعلي الأول لدولة الكويت: أبراج الكويت، سوق المباركية، الأفنيوز، المطاعم الكويتية، حاسبة الدينار الكويتي، ومخطط الرحلات الذكي." />
+  <meta name="keywords" content="دليل الكويت الشامل, سياحة الكويت, أبراج الكويت, سوق المباركية, الأفنيوز, مطاعم الكويت, الدينار الكويتي, Kuwait Explorer, Pipo Al-Gharawi, Bilal Al-Gharawi, Visit Kuwait" />
+  <meta name="author" content="Bilal (Pipo) Al-Gharawi" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="دليل الكويت الشامل | Kuwait Explorer Pro — Pipo Al-Gharawi" />
+  <meta property="og:description" content="الموسوعة السياحية والثقافية التفاعلية الشاملة لدولة الكويت باللغتين العربية والإنجليزية." />
+  <meta property="og:type" content="website" />
+
+  <!-- Schema.org Structured Data for Google Search -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "دليل الكويت الشامل | Kuwait Explorer Pro",
+    "alternateName": "Kuwait Explorer by Pipo Al-Gharawi",
+    "description": "الدليل السياحي والثقافي التفاعلي الشامل لدولة الكويت باللغتين العربية والإنجليزية",
+    "inLanguage": ["ar", "en"],
+    "author": {
+      "@type": "Person",
+      "name": "Bilal (Pipo) Al-Gharawi"
+    }
+  }
+  </script>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +56,7 @@
       font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
     }
     .glass-nav {
-      background: rgba(255, 255, 255, 0.90);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
@@ -82,9 +108,20 @@
 <body class="min-h-screen flex flex-col bg-sky-50/50 selection:bg-sky-600 selection:text-white">
 
   <!-- =====================================================================
-       SPLASH SCREEN (Sky-Blue + Large Kuwait Emblem + Kuwait Towers Backdrop)
+       SPLASH SCREEN (Sky-Blue + Large Kuwait Emblem + Kuwait Towers + Language Box)
        ===================================================================== -->
   <div id="splashScreen" class="fixed inset-0 z-[200] splash-sky-bg flex flex-col items-center justify-center text-white px-6 overflow-hidden transition-opacity duration-700">
+    <!-- Top Language Switcher on Splash Screen -->
+    <div class="absolute top-5 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 bg-sky-950/80 backdrop-blur-md px-3 py-2 rounded-2xl border border-white/25 shadow-xl">
+      <span class="text-xs font-bold text-sky-200 px-1">🌐 اللغة / Language:</span>
+      <button id="splashLangAr" onclick="App.setLang('ar')" class="px-4 py-1.5 rounded-xl text-xs font-extrabold transition bg-sky-500 text-white shadow">
+        🇰🇼 العربية
+      </button>
+      <button id="splashLangEn" onclick="App.setLang('en')" class="px-4 py-1.5 rounded-xl text-xs font-extrabold transition text-sky-100 hover:bg-white/10">
+        🇬🇧 English
+      </button>
+    </div>
+
     <!-- Background Real Kuwait Towers Photo + Architectural Towers Silhouette -->
     <div class="absolute inset-0 pointer-events-none overflow-hidden">
       <img
@@ -96,22 +133,18 @@
 
       <!-- Large Iconic Kuwait Towers Vector Silhouette in the Background -->
       <svg class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[560px] sm:w-[760px] h-[440px] opacity-35 text-sky-200" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Sea Waves -->
         <path d="M0 480 Q200 465 400 480 T800 480 L800 500 L0 500 Z" fill="currentColor" opacity="0.4"/>
-        <!-- Main Tower (Left-Center, Tallest with 2 Spheres) -->
         <polygon points="392,480 408,480 402,40 398,40" fill="currentColor"/>
         <circle cx="400" cy="245" r="46" fill="currentColor"/>
         <circle cx="400" cy="145" r="26" fill="currentColor"/>
-        <!-- Middle Tower (1 Sphere) -->
         <polygon points="484,480 498,480 493,115 489,115" fill="currentColor"/>
         <circle cx="491" cy="240" r="34" fill="currentColor"/>
-        <!-- Third Needle Tower (Left, Illumination Spire) -->
         <polygon points="315,480 325,480 321,160 319,160" fill="currentColor"/>
       </svg>
     </div>
 
     <!-- Foreground Content: Large Golden State of Kuwait Emblem -->
-    <div class="relative z-10 flex flex-col items-center">
+    <div class="relative z-10 flex flex-col items-center mt-8">
       <div class="relative flex items-center justify-center mb-6 animate-float">
         <div class="absolute w-52 h-52 rounded-full bg-sky-300/30 blur-3xl"></div>
         <!-- Large Ornate State of Kuwait Emblem SVG -->
@@ -127,20 +160,15 @@
               <stop offset="100%" stop-color="#0284c7"/>
             </linearGradient>
           </defs>
-          <!-- Outer Golden Falcon Wings Circle -->
           <circle cx="120" cy="120" r="108" fill="url(#skyCircle)" stroke="url(#goldGrad)" stroke-width="8"/>
           <circle cx="120" cy="120" r="96" fill="none" stroke="#fef3c7" stroke-width="2" stroke-dasharray="6 4"/>
-          <!-- Falcon Outstretched Wings -->
           <path d="M32 130 C25 75, 65 40, 120 40 C175 40, 215 75, 208 130 C192 95, 160 76, 120 76 C80 76, 48 95, 32 130 Z" fill="url(#goldGrad)"/>
-          <!-- Traditional Kuwaiti Boom Dhow Sailing on Gulf Waves -->
           <path d="M72 132 L168 132 L152 156 L88 156 Z" fill="#b45309" stroke="#fde68a" stroke-width="2"/>
           <path d="M120 68 L120 132" stroke="#fde68a" stroke-width="3.5"/>
           <path d="M120 72 L162 124 L120 124 Z" fill="#ffffff" opacity="0.95"/>
           <path d="M116 82 L82 124 L116 124 Z" fill="#f8fafc" opacity="0.9"/>
-          <!-- Arabian Gulf Waves -->
           <path d="M68 162 Q94 154 120 162 T172 162" fill="none" stroke="#e0f2fe" stroke-width="4" stroke-linecap="round"/>
           <path d="M78 171 Q100 164 120 171 T162 171" fill="none" stroke="#bae6fd" stroke-width="3" stroke-linecap="round"/>
-          <!-- Kuwait National Shield at Bottom -->
           <g transform="translate(85, 176)">
             <rect x="0" y="0" width="70" height="12" rx="2" fill="#007a3d"/>
             <rect x="0" y="12" width="70" height="12" fill="#ffffff"/>
@@ -148,7 +176,6 @@
             <polygon points="0,0 22,12 22,24 0,36" fill="#000000"/>
             <rect x="0" y="0" width="70" height="36" rx="4" fill="none" stroke="#fde68a" stroke-width="2.5"/>
           </g>
-          <!-- Top Banner: دولة الكويت -->
           <rect x="66" y="18" width="108" height="24" rx="12" fill="#082f49" stroke="url(#goldGrad)" stroke-width="2"/>
           <text x="120" y="34" text-anchor="middle" fill="#fde68a" font-size="12" font-weight="900" font-family="Tajawal, sans-serif">دولة الكويت</text>
         </svg>
@@ -158,10 +185,10 @@
         ✨ Pipo Al-Gharawi • KUWAIT EXPLORER PRO
       </div>
 
-      <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-center mb-3 drop-shadow-md">
+      <h1 id="splashTitle" class="text-4xl sm:text-6xl font-black tracking-tight text-center mb-3 drop-shadow-md">
         دليل الكويت الشامل
       </h1>
-      <p class="text-sky-100 text-base sm:text-lg font-medium tracking-wide text-center max-w-md mb-8">
+      <p id="splashSub" class="text-sky-100 text-base sm:text-lg font-medium tracking-wide text-center max-w-md mb-8">
         عروس الخليج العربي • الأزرق الكويتي بين التراث والمستقبل
       </p>
 
@@ -169,16 +196,41 @@
         <div id="splashBar" class="h-full bg-gradient-to-r from-amber-300 via-white to-sky-200 w-0 transition-all duration-1000"></div>
       </div>
 
-      <button onclick="App.closeSplash()" class="px-7 py-3 rounded-2xl bg-white text-sky-900 hover:bg-sky-50 font-black text-xs sm:text-sm tracking-wider shadow-xl transition transform hover:scale-105">
+      <button id="splashEnterBtn" onclick="App.closeSplash()" class="px-7 py-3 rounded-2xl bg-white text-sky-900 hover:bg-sky-50 font-black text-xs sm:text-sm tracking-wider shadow-xl transition transform hover:scale-105">
         دخول إلى الدليل • Enter Now →
       </button>
     </div>
   </div>
 
   <!-- =====================================================================
-       TOP NAVIGATION BAR (Sky-Blue Theme)
+       TOP LANGUAGE & INFO BAR (Always Visible at Very Top of Page!)
        ===================================================================== -->
-  <header class="sticky top-0 z-50 glass-nav border-b border-sky-200/80 no-print">
+  <div class="bg-sky-950 text-white py-2 px-4 border-b border-sky-800 no-print">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2 text-xs font-bold text-sky-200">
+        <span>🇰🇼</span>
+        <span id="topBarWelcome">مرحباً بك في البوابة السياحية والثقافية لدولة الكويت</span>
+        <span class="hidden sm:inline text-sky-500">|</span>
+        <span class="hidden sm:inline text-amber-300">☀️ 27°C • <span id="kuwaitClock">--:--</span> KWT</span>
+      </div>
+
+      <!-- PROMINENT BILINGUAL LANGUAGE SELECTOR BOX (العربية | English) -->
+      <div class="flex items-center gap-2 bg-sky-900/90 px-2.5 py-1 rounded-xl border border-sky-700 shadow-inner">
+        <span class="text-[11px] font-extrabold text-sky-200">🌐 اللغة / Language:</span>
+        <button id="langBtnAr" onclick="App.setLang('ar')" class="px-3.5 py-1 rounded-lg text-xs font-extrabold transition bg-sky-500 text-white shadow">
+          🇰🇼 العربية
+        </button>
+        <button id="langBtnEn" onclick="App.setLang('en')" class="px-3.5 py-1 rounded-lg text-xs font-extrabold transition text-sky-200 hover:text-white hover:bg-sky-800">
+          🇬🇧 English
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MAIN NAVIGATION BAR (Sky-Blue Theme)
+       ===================================================================== -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-sky-200/80 shadow-sm no-print">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
       <!-- Brand with Mini Kuwait Emblem -->
       <button onclick="App.setTab('home')" class="flex items-center gap-3 text-start group">
@@ -196,26 +248,6 @@
 
       <!-- Desktop Navigation Tabs -->
       <nav class="hidden lg:flex items-center gap-1.5 bg-sky-100/70 p-1.5 rounded-2xl border border-sky-200/70" id="desktopNav"></nav>
-
-      <!-- Right Controls: Live Kuwait Clock + Language Switcher -->
-      <div class="flex items-center gap-2.5">
-        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-sky-50 border border-sky-200 text-sky-900 text-xs font-bold">
-          <span>☀️ 27°C</span>
-          <span class="text-sky-300">|</span>
-          <span id="kuwaitClock">--:--</span>
-          <span class="text-[10px] text-sky-600">KWT</span>
-        </div>
-
-        <!-- Bilingual Switcher (AR / EN) -->
-        <div class="flex items-center bg-sky-950 text-white p-1 rounded-xl shadow-sm">
-          <button id="langBtnAr" onclick="App.setLang('ar')" class="px-3 py-1.5 rounded-lg text-xs font-extrabold transition bg-sky-500 text-white">
-            🇰🇼 العربية
-          </button>
-          <button id="langBtnEn" onclick="App.setLang('en')" class="px-3 py-1.5 rounded-lg text-xs font-extrabold transition text-sky-200 hover:text-white">
-            🇬🇧 EN
-          </button>
-        </div>
-      </div>
     </div>
 
     <!-- Mobile Navigation Bar -->
@@ -250,7 +282,7 @@
       </div>
       <div class="text-center md:text-end">
         <p class="text-xs font-bold text-white">© <span id="footerYear"></span> Designed & Engineered by <span class="text-sky-300">Bilal (Pipo) Al-Gharawi</span></p>
-        <p class="text-[11px] text-sky-400 mt-1" id="footerRights">يعمل بالكامل فوراً • Open-Source Public Edition</p>
+        <p class="text-[11px] text-sky-400 mt-1" id="footerRights">يعمل بالكامل فوراً باللغتين العربية والإنجليزية • Open-Source Public Edition</p>
       </div>
     </div>
   </footer>
@@ -262,6 +294,10 @@
     const DATA = {
       ui: {
         ar: {
+          topBarWelcome: "مرحباً بك في البوابة السياحية والثقافية لدولة الكويت",
+          splashTitle: "دليل الكويت الشامل",
+          splashSub: "عروس الخليج العربي • الأزرق الكويتي بين التراث والمستقبل",
+          splashEnterBtn: "دخول إلى الدليل • Enter Now →",
           brandTitle: "دليل الكويت الشامل",
           brandSub: "بإشراف وتطوير Pipo Al-Gharawi",
           tabs: [
@@ -310,6 +346,10 @@
           sendBtn: "إرسال"
         },
         en: {
+          topBarWelcome: "Welcome to the Official Interactive Tourism & Cultural Portal of Kuwait",
+          splashTitle: "Kuwait Explorer Pro",
+          splashSub: "Bride of the Arabian Gulf • Heritage & Modernity in Royal Sky Blue",
+          splashEnterBtn: "Enter Guide Now • دخول →",
           brandTitle: "Kuwait Explorer Pro",
           brandSub: "Designed & Engineered by Pipo Al-Gharawi",
           tabs: [
@@ -807,12 +847,19 @@
 
         const btnAr = document.getElementById("langBtnAr");
         const btnEn = document.getElementById("langBtnEn");
+        const spAr = document.getElementById("splashLangAr");
+        const spEn = document.getElementById("splashLangEn");
+
         if (lang === "ar") {
-          btnAr.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold transition bg-sky-500 text-white";
-          btnEn.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold transition text-sky-200 hover:text-white";
+          btnAr.className = "px-3.5 py-1 rounded-lg text-xs font-extrabold transition bg-sky-500 text-white shadow";
+          btnEn.className = "px-3.5 py-1 rounded-lg text-xs font-extrabold transition text-sky-200 hover:text-white hover:bg-sky-800";
+          if (spAr) spAr.className = "px-4 py-1.5 rounded-xl text-xs font-extrabold transition bg-sky-500 text-white shadow";
+          if (spEn) spEn.className = "px-4 py-1.5 rounded-xl text-xs font-extrabold transition text-sky-100 hover:bg-white/10";
         } else {
-          btnEn.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold transition bg-sky-500 text-white";
-          btnAr.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold transition text-sky-200 hover:text-white";
+          btnEn.className = "px-3.5 py-1 rounded-lg text-xs font-extrabold transition bg-sky-500 text-white shadow";
+          btnAr.className = "px-3.5 py-1 rounded-lg text-xs font-extrabold transition text-sky-200 hover:text-white hover:bg-sky-800";
+          if (spEn) spEn.className = "px-4 py-1.5 rounded-xl text-xs font-extrabold transition bg-sky-500 text-white shadow";
+          if (spAr) spAr.className = "px-4 py-1.5 rounded-xl text-xs font-extrabold transition text-sky-100 hover:bg-white/10";
         }
 
         if (this.chatHistory.length <= 1) {
@@ -841,6 +888,13 @@
         const t = DATA.ui[this.lang];
         document.getElementById("brandTitle").textContent = t.brandTitle;
         document.getElementById("brandSub").textContent = t.brandSub;
+        document.getElementById("topBarWelcome").textContent = t.topBarWelcome;
+        const spTitle = document.getElementById("splashTitle");
+        const spSub = document.getElementById("splashSub");
+        const spBtn = document.getElementById("splashEnterBtn");
+        if (spTitle) spTitle.textContent = t.splashTitle;
+        if (spSub) spSub.textContent = t.splashSub;
+        if (spBtn) spBtn.textContent = t.splashEnterBtn;
 
         const navHtml = t.tabs.map(tab => {
           const active = this.activeTab === tab.id;
@@ -959,14 +1013,12 @@
                   <div class="w-40 h-40 rounded-full bg-white/10 backdrop-blur-md border-2 border-amber-300/60 flex items-center justify-center p-4 shadow-2xl animate-float">
                     <svg class="w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="100" cy="100" r="92" fill="#0284c7" stroke="#fde68a" stroke-width="5"/>
-                      <!-- Kuwait Towers Trio -->
                       <polygon points="95,165 105,165 101,25 99,25" fill="#ffffff"/>
                       <circle cx="100" cy="105" r="22" fill="#bae6fd" stroke="#ffffff" stroke-width="2"/>
                       <circle cx="100" cy="62" r="13" fill="#e0f2fe" stroke="#ffffff" stroke-width="2"/>
                       <polygon points="134,165 142,165 139,55 137,55" fill="#e0f2fe"/>
                       <circle cx="138" cy="105" r="16" fill="#bae6fd" stroke="#ffffff" stroke-width="2"/>
                       <polygon points="62,165 68,165 66,75 64,75" fill="#e0f2fe"/>
-                      <!-- Waves -->
                       <path d="M40 165 Q70 155 100 165 T160 165" fill="none" stroke="#fde68a" stroke-width="4" stroke-linecap="round"/>
                     </svg>
                   </div>
