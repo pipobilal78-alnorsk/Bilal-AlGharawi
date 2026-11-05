@@ -1,54 +1,1520 @@
-
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Kuwait Explorer">
-    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/323/323311.png">
-    <link rel="manifest" href="./manifest.json">
-    <title>دليل الكويت الشامل | Pipo Al-Gharawi</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@100..900&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Noto Sans Arabic', sans-serif;
-        background-color: #f8fafc;
-        -webkit-tap-highlight-color: transparent;
-      }
-      .glass-effect {
-        background: rgba(255, 255, 255, 0.8);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-      }
-      @keyframes fadeOut {
-        from { opacity: 1; visibility: visible; }
-        to { opacity: 0; visibility: hidden; }
-      }
-      .splash-fade-out {
-        animation: fadeOut 0.8s forwards;
-        animation-delay: 2.5s;
-      }
-      .glow-text {
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "recharts": "https://esm.sh/recharts@^3.6.0"
-  }
-}
-</script>
+<html lang="ar" dir="rtl" id="htmlRoot">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Kuwait Explorer" />
+  <meta name="theme-color" content="#0284c7" />
+  <title>دليل الكويت الشامل | Kuwait Explorer Pro — Pipo Al-Gharawi</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --kwt-sky: #0284c7;
+      --kwt-cyan: #06b6d4;
+      --kwt-gold: #f59e0b;
+      --kwt-dark: #082f49;
+    }
+    body {
+      font-family: 'Tajawal', 'Plus Jakarta Sans', sans-serif;
+      background-color: #f0f9ff;
+      color: #0f172a;
+      -webkit-tap-highlight-color: transparent;
+      overflow-x: hidden;
+    }
+    html[dir="ltr"] body {
+      font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
+    }
+    .glass-nav {
+      background: rgba(255, 255, 255, 0.90);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .sky-hero-mesh {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.45) 0%, transparent 50%),
+        radial-gradient(circle at 80% 75%, rgba(14, 165, 233, 0.40) 0%, transparent 55%),
+        linear-gradient(135deg, #0369a1 0%, #0284c7 45%, #0ea5e9 80%, #38bdf8 100%);
+    }
+    .splash-sky-bg {
+      background:
+        radial-gradient(circle at 50% 25%, rgba(125, 211, 252, 0.45) 0%, transparent 55%),
+        linear-gradient(180deg, #0284c7 0%, #0369a1 50%, #075985 100%);
+    }
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 35px -10px rgba(2, 132, 199, 0.22);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #bae6fd;
+      border-radius: 999px;
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float {
+      animation: floatSlow 3.5s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { filter: drop-shadow(0 0 18px rgba(251, 191, 36, 0.55)); }
+      50% { filter: drop-shadow(0 0 32px rgba(251, 191, 36, 0.90)); }
+    }
+    .emblem-glow {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+    @media print {
+      .no-print { display: none !important; }
+    }
+  </style>
 </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<body class="min-h-screen flex flex-col bg-sky-50/50 selection:bg-sky-600 selection:text-white">
+
+  <!-- =====================================================================
+       SPLASH SCREEN (Sky-Blue + Large Kuwait Emblem + Kuwait Towers Backdrop)
+       ===================================================================== -->
+  <div id="splashScreen" class="fixed inset-0 z-[200] splash-sky-bg flex flex-col items-center justify-center text-white px-6 overflow-hidden transition-opacity duration-700">
+    <!-- Background Real Kuwait Towers Photo + Architectural Towers Silhouette -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <img
+        src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?q=80&w=2000&auto=format&fit=crop"
+        alt="Kuwait Towers Background"
+        class="w-full h-full object-cover opacity-25 mix-blend-luminosity scale-105"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-sky-950/90 via-sky-700/65 to-sky-500/50"></div>
+
+      <!-- Large Iconic Kuwait Towers Vector Silhouette in the Background -->
+      <svg class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[560px] sm:w-[760px] h-[440px] opacity-35 text-sky-200" viewBox="0 0 800 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Sea Waves -->
+        <path d="M0 480 Q200 465 400 480 T800 480 L800 500 L0 500 Z" fill="currentColor" opacity="0.4"/>
+        <!-- Main Tower (Left-Center, Tallest with 2 Spheres) -->
+        <polygon points="392,480 408,480 402,40 398,40" fill="currentColor"/>
+        <circle cx="400" cy="245" r="46" fill="currentColor"/>
+        <circle cx="400" cy="145" r="26" fill="currentColor"/>
+        <!-- Middle Tower (1 Sphere) -->
+        <polygon points="484,480 498,480 493,115 489,115" fill="currentColor"/>
+        <circle cx="491" cy="240" r="34" fill="currentColor"/>
+        <!-- Third Needle Tower (Left, Illumination Spire) -->
+        <polygon points="315,480 325,480 321,160 319,160" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <!-- Foreground Content: Large Golden State of Kuwait Emblem -->
+    <div class="relative z-10 flex flex-col items-center">
+      <div class="relative flex items-center justify-center mb-6 animate-float">
+        <div class="absolute w-52 h-52 rounded-full bg-sky-300/30 blur-3xl"></div>
+        <!-- Large Ornate State of Kuwait Emblem SVG -->
+        <svg class="w-36 h-36 sm:w-44 sm:h-44 emblem-glow" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#fde68a"/>
+              <stop offset="50%" stop-color="#f59e0b"/>
+              <stop offset="100%" stop-color="#b45309"/>
+            </linearGradient>
+            <linearGradient id="skyCircle" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#38bdf8"/>
+              <stop offset="100%" stop-color="#0284c7"/>
+            </linearGradient>
+          </defs>
+          <!-- Outer Golden Falcon Wings Circle -->
+          <circle cx="120" cy="120" r="108" fill="url(#skyCircle)" stroke="url(#goldGrad)" stroke-width="8"/>
+          <circle cx="120" cy="120" r="96" fill="none" stroke="#fef3c7" stroke-width="2" stroke-dasharray="6 4"/>
+          <!-- Falcon Outstretched Wings -->
+          <path d="M32 130 C25 75, 65 40, 120 40 C175 40, 215 75, 208 130 C192 95, 160 76, 120 76 C80 76, 48 95, 32 130 Z" fill="url(#goldGrad)"/>
+          <!-- Traditional Kuwaiti Boom Dhow Sailing on Gulf Waves -->
+          <path d="M72 132 L168 132 L152 156 L88 156 Z" fill="#b45309" stroke="#fde68a" stroke-width="2"/>
+          <path d="M120 68 L120 132" stroke="#fde68a" stroke-width="3.5"/>
+          <path d="M120 72 L162 124 L120 124 Z" fill="#ffffff" opacity="0.95"/>
+          <path d="M116 82 L82 124 L116 124 Z" fill="#f8fafc" opacity="0.9"/>
+          <!-- Arabian Gulf Waves -->
+          <path d="M68 162 Q94 154 120 162 T172 162" fill="none" stroke="#e0f2fe" stroke-width="4" stroke-linecap="round"/>
+          <path d="M78 171 Q100 164 120 171 T162 171" fill="none" stroke="#bae6fd" stroke-width="3" stroke-linecap="round"/>
+          <!-- Kuwait National Shield at Bottom -->
+          <g transform="translate(85, 176)">
+            <rect x="0" y="0" width="70" height="12" rx="2" fill="#007a3d"/>
+            <rect x="0" y="12" width="70" height="12" fill="#ffffff"/>
+            <rect x="0" y="24" width="70" height="12" rx="2" fill="#ce1126"/>
+            <polygon points="0,0 22,12 22,24 0,36" fill="#000000"/>
+            <rect x="0" y="0" width="70" height="36" rx="4" fill="none" stroke="#fde68a" stroke-width="2.5"/>
+          </g>
+          <!-- Top Banner: دولة الكويت -->
+          <rect x="66" y="18" width="108" height="24" rx="12" fill="#082f49" stroke="url(#goldGrad)" stroke-width="2"/>
+          <text x="120" y="34" text-anchor="middle" fill="#fde68a" font-size="12" font-weight="900" font-family="Tajawal, sans-serif">دولة الكويت</text>
+        </svg>
+      </div>
+
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-sky-100 text-xs font-extrabold tracking-widest uppercase mb-3 shadow-sm">
+        ✨ Pipo Al-Gharawi • KUWAIT EXPLORER PRO
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-center mb-3 drop-shadow-md">
+        دليل الكويت الشامل
+      </h1>
+      <p class="text-sky-100 text-base sm:text-lg font-medium tracking-wide text-center max-w-md mb-8">
+        عروس الخليج العربي • الأزرق الكويتي بين التراث والمستقبل
+      </p>
+
+      <div class="w-60 h-2 bg-white/20 rounded-full overflow-hidden mb-6 shadow-inner">
+        <div id="splashBar" class="h-full bg-gradient-to-r from-amber-300 via-white to-sky-200 w-0 transition-all duration-1000"></div>
+      </div>
+
+      <button onclick="App.closeSplash()" class="px-7 py-3 rounded-2xl bg-white text-sky-900 hover:bg-sky-50 font-black text-xs sm:text-sm tracking-wider shadow-xl transition transform hover:scale-105">
+        دخول إلى الدليل • Enter Now →
+      </button>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       TOP NAVIGATION BAR (Sky-Blue Theme)
+       ===================================================================== -->
+  <header class="sticky top-0 z-50 glass-nav border-b border-sky-200/80 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <!-- Brand with Mini Kuwait Emblem -->
+      <button onclick="App.setTab('home')" class="flex items-center gap-3 text-start group">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-700 flex items-center justify-center text-white shadow-lg shadow-sky-500/30 group-hover:scale-105 transition border border-sky-300/40">
+          <span class="text-2xl">🇰🇼</span>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-lg sm:text-xl font-black text-slate-900 tracking-tight" id="brandTitle">دليل الكويت الشامل</span>
+            <span class="hidden sm:inline-block px-2 py-0.5 text-[10px] font-extrabold rounded-full bg-sky-100 text-sky-800 border border-sky-200">الأزرق PRO</span>
+          </div>
+          <p class="text-[11px] font-bold text-sky-600" id="brandSub">بإشراف وتطوير Pipo Al-Gharawi</p>
+        </div>
+      </button>
+
+      <!-- Desktop Navigation Tabs -->
+      <nav class="hidden lg:flex items-center gap-1.5 bg-sky-100/70 p-1.5 rounded-2xl border border-sky-200/70" id="desktopNav"></nav>
+
+      <!-- Right Controls: Live Kuwait Clock + Language Switcher -->
+      <div class="flex items-center gap-2.5">
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-sky-50 border border-sky-200 text-sky-900 text-xs font-bold">
+          <span>☀️ 27°C</span>
+          <span class="text-sky-300">|</span>
+          <span id="kuwaitClock">--:--</span>
+          <span class="text-[10px] text-sky-600">KWT</span>
+        </div>
+
+        <!-- Bilingual Switcher (AR / EN) -->
+        <div class="flex items-center bg-sky-950 text-white p-1 rounded-xl shadow-sm">
+          <button id="langBtnAr" onclick="App.setLang('ar')" class="px-3 py-1.5 rounded-lg text-xs font-extrabold transition bg-sky-500 text-white">
+            🇰🇼 العربية
+          </button>
+          <button id="langBtnEn" onclick="App.setLang('en')" class="px-3 py-1.5 rounded-lg text-xs font-extrabold transition text-sky-200 hover:text-white">
+            🇬🇧 EN
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Bar -->
+    <div class="lg:hidden flex items-center gap-1.5 overflow-x-auto px-4 pb-2.5 custom-scroll" id="mobileNav"></div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN CONTENT CONTAINER
+       ===================================================================== -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8" id="mainContainer"></main>
+
+  <!-- =====================================================================
+       MODAL FOR MAP & LANDMARK DETAILS
+       ===================================================================== -->
+  <div id="detailModal" class="fixed inset-0 z-[150] bg-sky-950/75 backdrop-blur-sm hidden items-center justify-center p-4" onclick="if(event.target===this) App.closeModal()">
+    <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-sky-100 animate-in zoom-in-95 duration-200" id="detailModalContent"></div>
+  </div>
+
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+  <footer class="bg-sky-950 text-sky-200/80 py-12 px-4 mt-16 border-t border-sky-900 no-print">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3.5">
+        <div class="w-11 h-11 rounded-2xl bg-sky-500 flex items-center justify-center text-2xl shadow-lg shadow-sky-500/25">
+          🇰🇼
+        </div>
+        <div>
+          <h3 class="text-white font-black text-lg" id="footerTitle">دليل الكويت الشامل — Kuwait Explorer Pro</h3>
+          <p class="text-xs text-sky-300 font-semibold" id="footerSub">الموسوعة الرقمية والسياحية التفاعلية لدولة الكويت</p>
+        </div>
+      </div>
+      <div class="text-center md:text-end">
+        <p class="text-xs font-bold text-white">© <span id="footerYear"></span> Designed & Engineered by <span class="text-sky-300">Bilal (Pipo) Al-Gharawi</span></p>
+        <p class="text-[11px] text-sky-400 mt-1" id="footerRights">يعمل بالكامل فوراً • Open-Source Public Edition</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       APPLICATION ENGINE & DATA
+       ===================================================================== -->
+  <script>
+    const DATA = {
+      ui: {
+        ar: {
+          brandTitle: "دليل الكويت الشامل",
+          brandSub: "بإشراف وتطوير Pipo Al-Gharawi",
+          tabs: [
+            { id: "home", icon: "🏠", label: "الرئيسية والاقتصاد" },
+            { id: "landmarks", icon: "📍", label: "المعالم والمطاعم (16)" },
+            { id: "planner", icon: "🗓️", label: "مخطط الرحلات الذكي" },
+            { id: "heritage", icon: "🏛️", label: "التراث واللهجة الكويتية" },
+            { id: "chat", icon: "🤖", label: "مرشد Pipo الذكي" }
+          ],
+          heroBadge: "🇰🇼 النسخة الاحترافية السماوية • Pipo Al-Gharawi",
+          heroTitle: "دولة الكويت.. لؤلؤة الخليج العربي",
+          heroDesc: "دليلك التفاعلي الشامل لمعالم دولة الكويت وأبراجها الشامخة، الأسواق التراثية والمجمعات العالمية، المطاعم الكويتية، حاسبة الدينار الكويتي، ومخطط الرحلات الذكي.",
+          exploreBtn: "📍 استكشف معالم الكويت",
+          askAiBtn: "🤖 اسأل مرشد Pipo الذكي",
+          planTripBtn: "🗓️ صمّم جدول رحلتك",
+          stats: [
+            { icon: "💎", title: "أقوى عملة في العالم", val: "1 KWD ≈ $3.26 USD", desc: "الدينار الكويتي يتصدر عملات العالم قيمةً واستقراراً منذ إطلاقه عام 1961." },
+            { icon: "⛵", title: "عمق تاريخي عريق", val: "+4,000 سنة", desc: "من حضارة دلمون وآثار جزيرة فيلكا الإغريقية إلى نهضة الكويت الحديثة." },
+            { icon: "🗼", title: "معالم ومراكز ثقافية", val: "+16 وجهة كبرى", desc: "أبراج الكويت، مركز جابر الثقافي، المباركية، حديقة الشهيد، والأفنيوز." },
+            { icon: "🛡️", title: "طوارئ وأمان 24/7", val: "الرقم الموحد 112", desc: "دولة الكويت تتمتع بأعلى معايير الأمان والضيافة الخليجية الأصيلة." }
+          ],
+          kwdTitle: "💷 حاسبة تحويل الدينار الكويتي الفورية (KWD)",
+          kwdSub: "احسب قيمة الدينار الكويتي مقابل العملات العالمية والخليجية لحظياً",
+          kwdAmountLabel: "المبلغ بالدينار الكويتي (KWD):",
+          gdpTitle: "📈 مؤشر قوة الاقتصاد الكويتي والناتج المحلي",
+          gdpSub: "الناتج المحلي الإجمالي (بالمليار دولار) ومؤشرات النمو والرخاء",
+          searchPlaceholder: "ابحث عن معلم، مجمع، مطعم، أو منطقة (مثل: المباركية، الأفنيوز، أبراج الكويت)...",
+          favOnlyBtn: "❤️ المفضلة فقط",
+          openMapsBtn: "🗺️ فتح في Google Maps",
+          detailsBtn: "ℹ️ التفاصيل والخريطة",
+          hoursLabel: "🕒 أوقات الزيارة:",
+          priceLabel: "🎟️ الدخول / الأسعار:",
+          areaLabel: "📌 المنطقة:",
+          plannerTitle: "🗓️ مخطط جدولك السياحي الذكي في الكويت",
+          plannerSub: "اختر عدد الأيام وسيقوم النظام ببناء جدول يومي مفصل مع التكلفة التقديرية بالدينار الكويتي",
+          printPlanBtn: "🖨️ طباعة / حفظ الجدول PDF",
+          copyPlanBtn: "📋 نسخ الجدول",
+          copiedMsg: "✅ تم نسخ الجدول السياحي بنجاح!",
+          dialectTitle: "🗣️ قاموس اللهجة الكويتية الأصيلة",
+          dialectSub: "أشهر الكلمات والعبارات الكويتية ومعانيها لزوار الكويت",
+          dialectSearch: "ابحث عن كلمة كويتية أو معناها...",
+          emergencyTitle: "🚨 أرقام ومعلومات تهم كل زائر في الكويت",
+          chatTitle: "🤖 مرشد الكويت الذكي (Pipo AI Concierge)",
+          chatSub: "يعمل فوراً بدون إنترنت وبدون مفتاح API — اسألني عن المطاعم، المعالم، الأسواق، العملة، التراث، أو جدولك السياحي!",
+          chatInputPlaceholder: "اكتب سؤالك هنا (مثال: شنو أفضل المطاعم الكويتية؟ أو سو لي جدول 3 أيام)...",
+          sendBtn: "إرسال"
+        },
+        en: {
+          brandTitle: "Kuwait Explorer Pro",
+          brandSub: "Designed & Engineered by Pipo Al-Gharawi",
+          tabs: [
+            { id: "home", icon: "🏠", label: "Home & Economy" },
+            { id: "landmarks", icon: "📍", label: "Landmarks & Dining (16)" },
+            { id: "planner", icon: "🗓️", label: "Smart Trip Planner" },
+            { id: "heritage", icon: "🏛️", label: "Heritage & Kuwaiti Dialect" },
+            { id: "chat", icon: "🤖", label: "Pipo AI Concierge" }
+          ],
+          heroBadge: "🇰🇼 Royal Sky Edition • Pipo Al-Gharawi",
+          heroTitle: "State of Kuwait.. Pearl of the Gulf",
+          heroDesc: "Your complete interactive guide to Kuwait's iconic Towers, heritage souqs, luxury malls, traditional dining, live KWD currency converter, and AI trip planner.",
+          exploreBtn: "📍 Explore Landmarks",
+          askAiBtn: "🤖 Ask Pipo AI",
+          planTripBtn: "🗓️ Build Itinerary",
+          stats: [
+            { icon: "💎", title: "World's Highest-Valued Currency", val: "1 KWD ≈ $3.26 USD", desc: "The Kuwaiti Dinar has been the highest-valued currency unit globally since 1961." },
+            { icon: "⛵", title: "4,000+ Years of History", val: "Dilmun & Failaka", desc: "From Bronze Age Dilmun and Hellenistic Failaka to modern architectural marvels." },
+            { icon: "🗼", title: "Iconic Cultural Hubs", val: "16+ Top Destinations", desc: "Kuwait Towers, Sheikh Jaber Cultural Centre, Al-Mubarakiya, Al Shaheed Park & The Avenues." },
+            { icon: "🛡️", title: "Safety & Hospitality", val: "Emergency: 112", desc: "Renowned for warm Arabian hospitality, safety, and world-class infrastructure." }
+          ],
+          kwdTitle: "💷 Live Kuwaiti Dinar (KWD) Currency Converter",
+          kwdSub: "Instantly convert Kuwaiti Dinars (KWD) into major global and GCC currencies",
+          kwdAmountLabel: "Amount in Kuwaiti Dinar (KWD):",
+          gdpTitle: "📈 Kuwait Economic Strength & GDP Overview",
+          gdpSub: "Gross Domestic Product (Billion USD) & key economic indicators",
+          searchPlaceholder: "Search landmarks, malls, restaurants, or areas (e.g. Mubarakiya, Avenues, Towers)...",
+          favOnlyBtn: "❤️ Favorites Only",
+          openMapsBtn: "🗺️ Open in Google Maps",
+          detailsBtn: "ℹ️ Details & Map",
+          hoursLabel: "🕒 Opening Hours:",
+          priceLabel: "🎟️ Entry / Avg Cost:",
+          areaLabel: "📌 District:",
+          plannerTitle: "🗓️ Smart Kuwait Itinerary Generator",
+          plannerSub: "Choose your trip length to generate a complete day-by-day plan with estimated KWD budget",
+          printPlanBtn: "🖨️ Print / Save PDF",
+          copyPlanBtn: "📋 Copy Itinerary",
+          copiedMsg: "✅ Itinerary copied to clipboard!",
+          dialectTitle: "🗣️ Authentic Kuwaiti Dialect Dictionary",
+          dialectSub: "Essential Kuwaiti phrases, greetings, and cultural expressions with meanings",
+          dialectSearch: "Search Kuwaiti words or meanings...",
+          emergencyTitle: "🚨 Essential Visitor Info & Emergency Numbers",
+          chatTitle: "🤖 Pipo AI Kuwait Concierge",
+          chatSub: "Works 100% instantly with zero API keys required — ask about restaurants, malls, landmarks, KWD currency, history, or itineraries!",
+          chatInputPlaceholder: "Ask anything (e.g., Best traditional Kuwaiti restaurants? or 3-day itinerary)...",
+          sendBtn: "Send"
+        }
+      },
+
+      categories: [
+        { id: "all", ar: "الكل (16)", en: "All (16)" },
+        { id: "culture", ar: "🗼 معالم وثقافة", en: "🗼 Icons & Culture" },
+        { id: "shopping", ar: "🛍️ مجمعات وأسواق", en: "🛍️ Malls & Souqs" },
+        { id: "dining", ar: "🍽️ مطاعم كويتية", en: "🍽️ Kuwaiti Dining" },
+        { id: "nature", ar: "🌊 حدائق وجزر وبحر", en: "🌊 Parks & Islands" }
+      ],
+
+      landmarks: [
+        {
+          id: "kwt-towers",
+          cat: "culture",
+          rating: "4.9",
+          name: { ar: "أبراج الكويت (Kuwait Towers)", en: "Kuwait Towers" },
+          area: { ar: "شرق — الخليج العربي", en: "Sharq — Arabian Gulf St" },
+          hours: { ar: "8:00 ص – 11:00 م يومياً", en: "8:00 AM – 11:00 PM Daily" },
+          price: { ar: "3 د.ك للكبار (1.5 د.ك للأطفال)", en: "3 KWD Adults (1.5 KWD Kids)" },
+          coords: "29.3897,48.0033",
+          image: "https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "الرمز الوطني الأشهر لدولة الكويت على ساحل الخليج العربي، افتتحت رسمياً عام 1979 وتضم الكرة الكاشفة الدوارة بارتفاع 120 متراً ومطعم الأفق بإطلالة بانورامية ساحرة على مدينة الكويت والبحر.",
+            en: "Kuwait's most iconic architectural landmark on the Arabian Gulf coast, inaugurated in 1979. Features a 120m rotating viewing sphere and panoramic Horizon Restaurant."
+          }
+        },
+        {
+          id: "mubarakiya",
+          cat: "shopping",
+          rating: "4.9",
+          name: { ar: "سوق المباركية التراثي", en: "Souq Al-Mubarakiya" },
+          area: { ar: "قلب مدينة الكويت (القبلة)", en: "Downtown Kuwait City (Qibla)" },
+          hours: { ar: "8:00 ص – 12:00 منتصف الليل", en: "8:00 AM – 12:00 Midnight" },
+          price: { ar: "دخول مجاني", en: "Free Entry" },
+          coords: "29.3736,47.9739",
+          image: "https://images.unsplash.com/photo-1578895101408-1a36b834405b?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "أقدم وأعرق سوق تراثي في الكويت يمتد تاريخه لأكثر من 200 عام. يفوح بعبق البخور والعود، التمور، الحلوى الكويتية، الذهب، وكشك مبارك التاريخي، مع عشرات المطاعم الشعبية والمقاهي التراثية.",
+            en: "Kuwait's oldest heritage market dating back over 200 years. Famous for oud & perfumes, gold souq, dates, Sheikh Mubarak Kiosk, and authentic open-air Kuwaiti grills."
+          }
+        },
+        {
+          id: "jacc",
+          cat: "culture",
+          rating: "4.9",
+          name: { ar: "مركز الشيخ جابر الأحمد الثقافي (دار الأوبرا)", en: "Sheikh Jaber Al-Ahmad Cultural Centre (JACC)" },
+          area: { ar: "شارع الخليج العربي — الكويت", en: "Arabian Gulf St — Kuwait City" },
+          hours: { ar: "10:00 ص – 10:00 م", en: "10:00 AM – 10:00 PM" },
+          price: { ar: "دخول الساحات والنوافير مجاني", en: "Free Plaza & Fountain Access" },
+          coords: "29.3625,47.9581",
+          image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "تحفة معمارية عالمية مستوحاة من الهندسة الإسلامية على شكل جواهر تيتانيوم عملاقة، تضم المسرح الوطني ودار الأوبرا وقاعات الحفلات الموسيقية والنافورة الراقصة ومجموعة راقية من المطاعم والمقاهي.",
+            en: "World-renowned architectural titanium jewels housing Kuwait's Opera House, National Theatre, concert halls, musical dancing fountain, and upscale dining plaza."
+          }
+        },
+        {
+          id: "shaheed-park",
+          cat: "nature",
+          rating: "4.9",
+          name: { ar: "حديقة الشهيد (Al Shaheed Park)", en: "Al Shaheed Park" },
+          area: { ar: "شرق — السور الأخضر", en: "Sharq — Green Belt" },
+          hours: { ar: "5:00 ص – 12:00 منتصف الليل", en: "5:00 AM – 12:00 Midnight" },
+          price: { ar: "دخول مجاني", en: "Free Entry" },
+          coords: "29.3694,47.9936",
+          image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "أكبر حديقة حضرية ثقافية في الكويت، تجمع بين المسطحات الخضراء، متحف الذكرى ومتحف الموطن، البحيرة والنصب التذكاري للدستور، مسارات المشي، والمقاهي المطلة على أبراج العاصمة.",
+            en: "Kuwait's premier urban botanical park featuring the Constitution Monument, Habitat & Remembrance Museums, jogging tracks, lakes, and skyline views."
+          }
+        },
+        {
+          id: "avenues",
+          cat: "shopping",
+          rating: "4.9",
+          name: { ar: "مجمع الأفنيوز (The Avenues)", en: "The Avenues Mall" },
+          area: { ar: "الري — الدائري الخامس", en: "Al-Rai — 5th Ring Road" },
+          hours: { ar: "10:00 ص – 11:00 م (12:00 بالويكند)", en: "10:00 AM – 11:00 PM" },
+          price: { ar: "دخول مجاني (+1,100 متجر ومطعم)", en: "Free Entry (1,100+ Stores)" },
+          coords: "29.3033,47.9358",
+          image: "https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "من أكبر وأفخم مراكز التسوق والترفيه في الشرق الأوسط والعالم. يضم مناطق مميزة مثل غراند أفنيو، برستيج، السوق القديم، البازار، الفوروم، وحدائق الأفنيوز مع أكثر من 1100 علامة تجارية ومطعم.",
+            en: "One of the world's largest luxury shopping and lifestyle destinations, featuring Grand Avenue, Prestige, The Souk, The Gardens, VOX Cinemas, and 1,100+ brands."
+          }
+        },
+        {
+          id: "ascc",
+          cat: "culture",
+          rating: "4.9",
+          name: { ar: "مركز الشيخ عبدالله السالم الثقافي", en: "Sheikh Abdullah Al Salem Cultural Centre" },
+          area: { ar: "السالمية — شارع التعاون", en: "Salmiya — Al-Taawun St" },
+          hours: { ar: "9:00 ص – 8:00 م (مغلق الأحد)", en: "9:00 AM – 8:00 PM (Closed Sun)" },
+          price: { ar: "3 د.ك للكبار (2 د.ك للأطفال)", en: "3 KWD Adults (2 KWD Kids)" },
+          coords: "29.3458,48.0608",
+          image: "https://images.unsplash.com/photo-1565060169194-19fabf63012c?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "أحد أكبر المجمعات المتحفية في العالم (حائز على جائزة أفضل مشروع ثقافي)، يضم 6 متاحف عالمية: الفضاء، التاريخ الطبيعي، العلوم والتكنولوجيا، العلوم العربية الإسلامية، والفنون الجميلة.",
+            en: "One of the world's largest museum complexes spanning 6 museums: Space, Natural History, Science & Technology, Arabic Islamic Science, and Fine Arts."
+          }
+        },
+        {
+          id: "grand-mosque",
+          cat: "culture",
+          rating: "4.9",
+          name: { ar: "المسجد الكبير في الكويت", en: "Grand Mosque of Kuwait" },
+          area: { ar: "مدينة الكويت — مقابل قصر السيف", en: "Kuwait City — Opposite Seif Palace" },
+          hours: { ar: "جولات مجانية: 9:00 ص – 5:00 م", en: "Guided Tours: 9:00 AM – 5:00 PM" },
+          price: { ar: "جولات ثقافية مجانية مع الضيافة", en: "Free Guided Cultural Tours" },
+          coords: "29.3789,47.9748",
+          image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "المسجد الرسمي والأكبر في دولة الكويت على مساحة 45,000 متر مربع، يتميز بقبته الأندلسية الضخمة المزخرفة بأسماء الله الحسنى والزخارف الإسلامية المذهبة، ويوفر جولات إرشادية مجانية للزوار.",
+            en: "Kuwait's largest official mosque spanning 45,000 sqm, renowned for its magnificent Andalusian-Islamic dome, calligraphy, and complimentary guided cultural tours."
+          }
+        },
+        {
+          id: "scientific-center",
+          cat: "nature",
+          rating: "4.8",
+          name: { ar: "المركز العلمي الكويتي (الأكواريوم)", en: "The Scientific Center (TSCK)" },
+          area: { ar: "السالمية — الواجهة البحرية", en: "Salmiya — Waterfront" },
+          hours: { ar: "9:00 ص – 9:30 م", en: "9:00 AM – 9:30 PM" },
+          price: { ar: "3.5 – 5.5 د.ك حسب التذاكر", en: "3.5 – 5.5 KWD" },
+          coords: "29.3506,48.0975",
+          image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "يقع على كورنيش السالمية ويضم أحد أكبر أحواض الأسماك (الأكواريوم) في الشرق الأوسط، قاعة الاستكشاف، سينما IMAX العملاقة، ومرسى السفن الشراعية التاريخية (بوم فتح الخير).",
+            en: "Located on the Salmiya promenade, featuring a massive desert & marine Aquarium, Discovery Place, IMAX theater, and historic Fateh Al-Khair dhow harbor."
+          }
+        },
+        {
+          id: "assima-mall",
+          cat: "shopping",
+          rating: "4.8",
+          name: { ar: "العاصمة مول (Al Assima Mall)", en: "Al Assima Mall" },
+          area: { ar: "شرق — قلب مدينة الكويت", en: "Sharq — Kuwait City" },
+          hours: { ar: "10:00 ص – 10:00 م", en: "10:00 AM – 10:00 PM" },
+          price: { ar: "دخول مجاني", en: "Free Entry" },
+          coords: "29.3733,47.9889",
+          image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "أحدث المجمعات العصرية الفاخرة في قلب العاصمة الكويت، يتميز بحديقته المعلقة المفتوحة في الطوابق العليا بإطلالة بانورامية على ناطحات السحاب، وأرقى المطاعم والكافيهات المختصة.",
+            en: "Modern luxury vertical mall in the heart of Kuwait City featuring rooftop sky gardens, specialty coffee lounges, and panoramic skyscraper views."
+          }
+        },
+        {
+          id: "360-mall",
+          cat: "shopping",
+          rating: "4.9",
+          name: { ar: "مجمع 360 (360 Mall & Arena)", en: "360 Mall & The Arena Kuwait" },
+          area: { ar: "الزهراء — الدائري السادس", en: "Al-Zahra — 6th Ring Road" },
+          hours: { ar: "10:00 ص – 11:00 م", en: "10:00 AM – 11:00 PM" },
+          price: { ar: "دخول مجاني", en: "Free Entry" },
+          coords: "29.2672,47.9928",
+          image: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "وجهة الفخامة والرياضة والترفيه في الكويت؛ يجمع بين أرقى الماركات العالمية، الحدائق العمودية، قاعة الأرينا للحفلات والفعاليات الكبرى، وأكاديمية رافا نادال للتنس.",
+            en: "Iconic circular luxury mall home to designer boutiques, vertical botanical gardens, The Arena Kuwait event venue, and Rafa Nadal Tennis Academy."
+          }
+        },
+        {
+          id: "al-kout",
+          cat: "shopping",
+          rating: "4.8",
+          name: { ar: "مجمع الكوت ومرسى الفحيحيل (Al Kout)", en: "Al Kout Mall & Waterfront" },
+          area: { ar: "الفحيحيل — جنوب الكويت", en: "Fahaheel — South Kuwait" },
+          hours: { ar: "10:00 ص – 11:00 م", en: "10:00 AM – 11:00 PM" },
+          price: { ar: "دخول مجاني", en: "Free Entry" },
+          coords: "29.0811,48.1422",
+          image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "تحفة الجنوب الكويتي؛ يجمع بين مجمع الكوت العصري وسوق الكوت التراثي المطل على مرسى اليخوت والنافورة الراقصة والشاطئ البحري.",
+            en: "South Kuwait's premier waterfront destination combining a modern mall with a traditional souq, yacht marina, dancing fountains, and beach promenade."
+          }
+        },
+        {
+          id: "failaka-island",
+          cat: "nature",
+          rating: "4.7",
+          name: { ar: "جزيرة فيلكا التاريخية", en: "Failaka Heritage Island" },
+          area: { ar: "20 كم في الخليج العربي (من مرسى السالمية)", en: "20 km off Kuwait Coast (Salmiya Ferry)" },
+          hours: { ar: "رحلات العبارات: 8:00 ص – 6:00 م", en: "Ferry Trips: 8:00 AM – 6:00 PM" },
+          price: { ar: "تذكرة العبارة ~8–15 د.ك ذهاب وعودة", en: "Ferry ~8–15 KWD Roundtrip" },
+          coords: "29.4394,48.3347",
+          image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "جزيرة التاريخ والحضارات؛ تضم آثار حضارة دلمون (أكثر من 4000 عام)، القلعة والمعبد الإغريقي (إيكاروس) منذ عهد الإسكندر الأكبر، والقرية التراثية الكويتية ومنتجع فيلكا.",
+            en: "Historic island hosting 4,000-year-old Bronze Age Dilmun ruins, Alexander the Great's Hellenistic Ikaros temple, heritage village, and beaches."
+          }
+        },
+        {
+          id: "bait-al-othman",
+          cat: "culture",
+          rating: "4.8",
+          name: { ar: "متحف بيت العثمان التراثي", en: "Bait Al-Othman Museum" },
+          area: { ar: "حولي — تقاطع شارع عبدالله العثمان", en: "Hawalli — Abdullah Al-Othman St" },
+          hours: { ar: "9:00 ص – 1:00 ظ، 4:00 م – 9:00 م", en: "9:00 AM – 1:00 PM, 4:00 – 9:00 PM" },
+          price: { ar: "1 – 2 د.ك", en: "1 – 2 KWD" },
+          coords: "29.3389,48.0125",
+          image: "https://images.unsplash.com/photo-1590053419079-c73142270921?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "متحف متكامل يجسد حياة أهل الكويت قديماً بتفاصيلها الأصيلة: البيت الكويتي القديم، السوق الشعبي، متحف الدراما والمسرح الكويتي، ومتحف رحلة الحياة والغوص على اللؤلؤ.",
+            en: "Sprawling heritage house preserving old Kuwaiti courtyard architecture, vintage souq life, pearl diving artifacts, and the golden era of Kuwaiti theater & TV."
+          }
+        },
+        {
+          id: "freej-swaeleh",
+          cat: "dining",
+          rating: "4.8",
+          name: { ar: "مطعم فريج صويلح (الأكل الكويتي الأصيل)", en: "Freej Swaeleh Traditional Restaurant" },
+          area: { ar: "السالمية / المباركية / الأفنيوز", en: "Salmiya / Mubarakiya / Avenues" },
+          hours: { ar: "11:30 ص – 12:00 منتصف الليل", en: "11:30 AM – 12:00 Midnight" },
+          price: { ar: "متوسط 4 – 7 د.ك للشخص", en: "Avg 4 – 7 KWD per person" },
+          coords: "29.3358,48.0683",
+          image: "https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "أشهر وجهة لتذوق المطبخ الكويتي الشعبي على أصوله: مجبوس الدجاج واللحم، مطبق الزبيدي الكويتي، المرقوق، القبوط، الجريش، واللقيمات مع الدقوس والمعبوج الكويتي.",
+            en: "Iconic Kuwaiti restaurant famous for authentic Machboos, Mutabbaq Zubaidi (silver pomfret), Jireesh, Tashreeb, and hot Luqaimat in a heritage setting."
+          }
+        },
+        {
+          id: "dar-hamad",
+          cat: "dining",
+          rating: "4.8",
+          name: { ar: "مطعم دار حمد (Dar Hamad)", en: "Dar Hamad Seafront Restaurant" },
+          area: { ar: "السالمية — شارع البلاجات البحري", en: "Salmiya — Blajat Beachfront" },
+          hours: { ar: "8:30 ص – 11:30 م (ريوق وغداء وعشاء)", en: "8:30 AM – 11:30 PM" },
+          price: { ar: "متوسط 6 – 12 د.ك للشخص", en: "Avg 6 – 12 KWD per person" },
+          coords: "29.3381,48.0933",
+          image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "تجربة ملكية للمطبخ الكويتي الحديث والريوق الكويتي الفاخر في فيلا ساحلية مستوحاة من ستينيات وسبعينيات الكويت الذهبية مع إطلالة مباشرة على الخليج العربي.",
+            en: "Upscale Kuwaiti culinary gem set in a 1960s-inspired beachfront villa on Blajat Street, celebrated for royal Kuwaiti breakfast trays and modern local cuisine."
+          }
+        },
+        {
+          id: "mais-alghanim",
+          cat: "dining",
+          rating: "4.8",
+          name: { ar: "مطعم ميس الغانم (منذ 1953)", en: "Mais Alghanim (Est. 1953)" },
+          area: { ar: "شرق — مقابل أبراج الكويت", en: "Sharq — Near Kuwait Towers" },
+          hours: { ar: "12:00 ظ – 11:30 م", en: "12:00 PM – 11:30 PM" },
+          price: { ar: "متوسط 5 – 9 د.ك للشخص", en: "Avg 5 – 9 KWD per person" },
+          coords: "29.3869,47.9978",
+          image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=1000&auto=format&fit=crop",
+          desc: {
+            ar: "من أعرق مطاعم الكويت العائلية منذ عام 1953 على شارع الخليج العربي، يشتهر بالمشويات، المأكولات الكويتية واللبنانية والبحرية والضيافة العريقة.",
+            en: "One of Kuwait's oldest and most beloved family restaurants since 1953 along Gulf Road, famous for charcoal grills, fresh seafood, and hospitality."
+          }
+        }
+      ],
+
+      currencies: [
+        { code: "USD", flag: "🇺🇸", nameAr: "دولار أمريكي", nameEn: "US Dollar", rate: 3.26 },
+        { code: "EUR", flag: "🇪🇺", nameAr: "يورو أوروبي", nameEn: "Euro", rate: 3.01 },
+        { code: "GBP", flag: "🇬🇧", nameAr: "جنيه إسترليني", nameEn: "British Pound", rate: 2.52 },
+        { code: "NOK", flag: "🇳🇴", nameAr: "كرون نرويجي", nameEn: "Norwegian Krone", rate: 35.80 },
+        { code: "SAR", flag: "🇸🇦", nameAr: "ريال سعودي", nameEn: "Saudi Riyal", rate: 12.23 },
+        { code: "AED", flag: "🇦🇪", nameAr: "درهم إماراتي", nameEn: "UAE Dirham", rate: 11.97 },
+        { code: "QAR", flag: "🇶🇦", nameAr: "ريال قطري", nameEn: "Qatari Riyal", rate: 11.87 },
+        { code: "BHD", flag: "🇧🇭", nameAr: "دينار بحريني", nameEn: "Bahraini Dinar", rate: 1.23 }
+      ],
+
+      gdpData: [
+        { year: "2019", gdp: 136, labelAr: "136 مليار $", labelEn: "$136B" },
+        { year: "2020", gdp: 106, labelAr: "106 مليار $", labelEn: "$106B" },
+        { year: "2021", gdp: 139, labelAr: "139 مليار $", labelEn: "$139B" },
+        { year: "2022", gdp: 184, labelAr: "184 مليار $", labelEn: "$184B" },
+        { year: "2023", gdp: 164, labelAr: "164 مليار $", labelEn: "$164B" },
+        { year: "2025+", gdp: 178, labelAr: "178 مليار $ (نمو)", labelEn: "$178B" }
+      ],
+
+      itineraries: {
+        "1": [
+          {
+            dayAr: "اليوم الأول: خلاصة روائع الكويت في 24 ساعة",
+            dayEn: "Day 1: The Ultimate 24-Hour Kuwait Highlights",
+            costKwd: "18 – 30 KWD",
+            items: [
+              { time: "09:00 AM", ar: "ريوق كويتي أصيل في مطعم دار حمد على البحر أو ترويقة في سوق المباركية.", en: "Traditional Kuwaiti breakfast at Dar Hamad by the sea or Souq Al-Mubarakiya." },
+              { time: "10:30 AM", ar: "زيارة أبراج الكويت والصعود للكرة الكاشفة + جولة في المسجد الكبير.", en: "Visit Kuwait Towers viewing sphere + guided tour at the Grand Mosque." },
+              { time: "01:30 PM", ar: "غداء مطبق زبيدي ومجبوس كويتي في مطعم فريج صويلح أو ميس الغانم.", en: "Authentic Machboos & Mutabbaq Zubaidi lunch at Freej Swaeleh or Mais Alghanim." },
+              { time: "04:30 PM", ar: "جولة مشي عند الغروب في حديقة الشهيد ثم العروض المسائية في مركز جابر الثقافي.", en: "Sunset stroll at Al Shaheed Park followed by fountains at Sheikh Jaber Cultural Centre." },
+              { time: "08:00 PM", ar: "سهرة وتسوق وعشاء في سوق المباركية التراثي أو مجمع الأفنيوز.", en: "Evening shopping & dinner at historic Souq Al-Mubarakiya or The Avenues." }
+            ]
+          }
+        ],
+        "3": [
+          {
+            dayAr: "اليوم الأول: قلب العاصمة والتراث الأصيل",
+            dayEn: "Day 1: Historic Heart & Capital Icons",
+            costKwd: "15 – 25 KWD",
+            items: [
+              { time: "09:30 AM", ar: "جولة الصباح في المسجد الكبير وقصر السيف وأبراج الكويت.", en: "Morning tour of Grand Mosque, Seif Palace exterior & Kuwait Towers." },
+              { time: "01:30 PM", ar: "غداء كويتي شعبي في سوق المباركية وزيارة كشك مبارك وسوق الذهب والتمور.", en: "Traditional lunch in Souq Al-Mubarakiya, Sheikh Mubarak Kiosk & Gold Souq." },
+              { time: "05:30 PM", ar: "تمشية المساء في حديقة الشهيد والنافورة الموسيقية في مركز جابر الثقافي.", en: "Evening walk at Al Shaheed Park & dancing fountains at JACC." }
+            ]
+          },
+          {
+            dayAr: "اليوم الثاني: المتاحف الكبرى والواجهة البحرية",
+            dayEn: "Day 2: World-Class Museums & Waterfront",
+            costKwd: "20 – 35 KWD",
+            items: [
+              { time: "09:00 AM", ar: "ريوق على البحر في دار حمد (شارع البلاجات بالسالمية).", en: "Beachfront breakfast at Dar Hamad on Blajat Street, Salmiya." },
+              { time: "11:00 AM", ar: "استكشاف المتاحف الـ 6 في مركز الشيخ عبدالله السالم الثقافي.", en: "Explore the 6 world-class museums at Sheikh Abdullah Al Salem Cultural Centre." },
+              { time: "04:00 PM", ar: "زيارة الأكواريوم والمركز العلمي الكويتي على كورنيش السالمية.", en: "Visit the Aquarium & historic dhow at The Scientific Center." },
+              { time: "07:30 PM", ar: "جولة تسوق وعشاء فاخر في مجمع الأفنيوز (غراند أفنيو وبرستيج).", en: "Luxury shopping and dinner at The Avenues (Grand Avenue & Prestige)." }
+            ]
+          },
+          {
+            dayAr: "اليوم الثالث: الجزر والبحر وجمال الجنوب",
+            dayEn: "Day 3: Failaka Island & Al Kout Marina",
+            costKwd: "20 – 35 KWD",
+            items: [
+              { time: "08:30 AM", ar: "رحلة بحرية بالعبارة إلى جزيرة فيلكا التاريخية وآثار دلمون وإيكاروس (أو متحف بيت العثمان).", en: "Ferry trip to Failaka Island's ancient ruins (or Bait Al-Othman Heritage Museum)." },
+              { time: "03:00 PM", ar: "زيارة العاصمة مول والحديقة المعلقة في قلب شرق.", en: "Visit Al Assima Mall & its elevated rooftop sky garden in Sharq." },
+              { time: "07:00 PM", ar: "أمسية الختام في مجمع الكوت وسوق الكوت التراثي على مرسى الفحيحيل.", en: "Farewell evening at Al Kout Mall, Souq Al Kout & Fahaheel yacht marina." }
+            ]
+          }
+        ],
+        "5": [
+          {
+            dayAr: "اليوم 1: معالم العاصمة وأبراج الكويت والمباركية",
+            dayEn: "Day 1: Kuwait Towers, Grand Mosque & Souq Al-Mubarakiya",
+            costKwd: "15 – 25 KWD",
+            items: [
+              { time: "10:00 AM", ar: "أبراج الكويت + المسجد الكبير + غداء في سوق المباركية التراثي.", en: "Kuwait Towers + Grand Mosque + Heritage lunch at Souq Al-Mubarakiya." },
+              { time: "06:00 PM", ar: "حديقة الشهيد ومركز الشيخ جابر الأحمد الثقافي (دار الأوبرا).", en: "Al Shaheed Park & Sheikh Jaber Al-Ahmad Cultural Centre." }
+            ]
+          },
+          {
+            dayAr: "اليوم 2: السالمية والمتاحف العلمية والواجهة البحرية",
+            dayEn: "Day 2: Salmiya Coast, Museums & Aquarium",
+            costKwd: "18 – 30 KWD",
+            items: [
+              { time: "09:30 AM", ar: "ريوق دار حمد + مركز عبدالله السالم الثقافي + المركز العلمي.", en: "Dar Hamad breakfast + Abdullah Al Salem Cultural Centre + Scientific Center." },
+              { time: "07:00 PM", ar: "عشاء مشويات وبحريات في ميس الغانم على الخليج العربي.", en: "Seafood & charcoal grill dinner at Mais Alghanim on Gulf Road." }
+            ]
+          },
+          {
+            dayAr: "اليوم 3: عالم الأفنيوز ومتحف بيت العثمان",
+            dayEn: "Day 3: Bait Al-Othman Museum & The Avenues",
+            costKwd: "20 – 40 KWD",
+            items: [
+              { time: "10:00 AM", ar: "جولة تراثية في متحف بيت العثمان بحولي ومتحف طارق رجب للخط الإسلامي.", en: "Bait Al-Othman Heritage Museum & Tareq Rajab Islamic Calligraphy Museum." },
+              { time: "03:00 PM", ar: "يوم كامل في مجمع الأفنيوز (السوق، غراند أفنيو، الفوروم، والسينما).", en: "Full afternoon & evening exploring The Avenues districts." }
+            ]
+          },
+          {
+            dayAr: "اليوم 4: رحلة جزيرة فيلكا التاريخية والبحر",
+            dayEn: "Day 4: Failaka Island Maritime Adventure",
+            costKwd: "22 – 35 KWD",
+            items: [
+              { time: "08:30 AM", ar: "رحلة بحرية إلى جزيرة فيلكا واستكشاف المعبد الإغريقي والقرية التراثية.", en: "Boat excursion to Failaka Island, Hellenistic temple & heritage village." },
+              { time: "06:30 PM", ar: "قهوة المساء والعشاء في العاصمة مول بمدينة الكويت.", en: "Specialty coffee & rooftop dinner at Al Assima Mall." }
+            ]
+          },
+          {
+            dayAr: "اليوم 5: مجمع 360 ومجمع الكوت ومرسى الفحيحيل",
+            dayEn: "Day 5: 360 Mall, Al Kout Waterfront & Souvenir Shopping",
+            costKwd: "20 – 35 KWD",
+            items: [
+              { time: "11:00 AM", ar: "زيارة مجمع 360 والحدائق العمودية + غداء كويتي فاخر.", en: "Visit 360 Mall vertical gardens & luxury lunch." },
+              { time: "05:00 PM", ar: "مجمع الكوت ومرسى الفحيحيل وشراء الهدايا والعود والحلوى الكويتية.", en: "Al Kout Marina sunset walk & buying Kuwaiti sweets and oud souvenirs." }
+            ]
+          }
+        ]
+      },
+
+      dialect: [
+        { word: "قوّة / الله يقوّيك", pron: "Gawwah / Allah Ygawwik", ar: "تحية كويتية أصيلة تعني: الله يعطيك القوة والعافية.", en: "Classic warm Kuwaiti greeting meaning 'May God give you strength'." },
+        { word: "يا هلا ومرحبا / حيّالله من يانا", pron: "Ya Hala / Hayallah Man Yana", ar: "أجمل عبارات الترحيب بالضيف عند دخوله الديوانية أو المكان.", en: "Heartfelt Kuwaiti welcome meaning 'Welcome to whoever came to us'." },
+        { word: "عساك على القوّة", pron: "Asak Ala Al-Gawwah", ar: "تقال للشخص الذي يعمل أو يجتهد لتشجيعه وتقدير تعبه.", en: "Said to appreciate someone's hard work ('May you stay strong')." },
+        { word: "ما قصّرت / بيّض الله ويهك", pron: "Ma Gassart / Bayyadh Allah Wajhak", ar: "عبارة شكر وامتنان عميقة لمن قدم معروفاً أو مساعدة.", en: "Deep expression of gratitude ('You went above and beyond')." },
+        { word: "الديوانية", pron: "Al-Diwaniya", ar: "المجلس الكويتي التراثي والاجتماعي الذي يجتمع فيه الأهل والأصدقاء والضيوف.", en: "Traditional Kuwaiti social reception hall where guests and friends gather." },
+        { word: "شدعوة!", pron: "Shda'wah!", ar: "تقال للمعاتبة اللطيفة أو الاستغراب بمعنى (ليش عاد / لا تبالغ).", en: "Friendly expression meaning 'Why so formal?' or 'Come on!'" },
+        { word: "تامر أمر / أبشر بعزّك", pron: "Tamer Amer / Abshir Bi'izzak", ar: "رد راقٍ يدل على الكرم والاستعداد لتلبية الطلب فوراً.", en: "Gracious phrase meaning 'Consider it done with honor'." },
+        { word: "النوخذة / البوم", pron: "Al-Nokhatha / Al-Boom", ar: "النوخذة هو قبطان سفينة الغوص والتجارة قديماً، والبوم هي السفينة الشراعية الكويتية الشهيرة.", en: "Nokhatha is the historic pearl-diving ship captain; Boom is the iconic Kuwaiti dhow." },
+        { word: "مجبوس / مطبق زبيدي", pron: "Machboos / Mutabbaq Zubaidi", ar: "الأطباق الوطنية الأشهر في الكويت (الأرز المبهر مع الدجاج أو اللحم أو سمك الزبيدي).", en: "Kuwait's national dishes of spiced rice with meat, chicken, or silver pomfret fish." },
+        { word: "يا بعد راسي / الغالي", pron: "Ya Ba'ad Rasi / Al-Ghali", ar: "كلمة محبة وتقدير عالية تقال للصديق العزيز والقريب من القلب.", en: "Affectionate Kuwaiti term of endearment for a dear friend." }
+      ]
+    };
+
+    const App = {
+      lang: "ar",
+      activeTab: "home",
+      selectedCategory: "all",
+      searchQuery: "",
+      favOnly: false,
+      favorites: JSON.parse(localStorage.getItem("kwt_favs") || "[]"),
+      kwdAmount: 10,
+      planDays: "3",
+      dialectQuery: "",
+      chatHistory: [],
+
+      init() {
+        document.getElementById("footerYear").textContent = new Date().getFullYear();
+        setTimeout(() => {
+          const bar = document.getElementById("splashBar");
+          if (bar) bar.style.width = "100%";
+        }, 100);
+        setTimeout(() => this.closeSplash(), 2600);
+
+        this.updateClock();
+        setInterval(() => this.updateClock(), 15000);
+
+        this.resetChatGreeting();
+        this.renderAll();
+      },
+
+      closeSplash() {
+        const sp = document.getElementById("splashScreen");
+        if (!sp) return;
+        sp.style.opacity = "0";
+        setTimeout(() => { sp.style.display = "none"; }, 600);
+      },
+
+      updateClock() {
+        try {
+          const nowStr = new Intl.DateTimeFormat("en-GB", {
+            timeZone: "Asia/Kuwait",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+          }).format(new Date());
+          const el = document.getElementById("kuwaitClock");
+          if (el) el.textContent = nowStr;
+        } catch (e) {}
+      },
+
+      resetChatGreeting() {
+        this.chatHistory = [
+          {
+            role: "ai",
+            text: this.lang === "ar"
+              ? "يا هلا ومرحبا فيك في **دليل الكويت الشامل**! 🇰🇼✨\nأنا مرشد **Pipo الذكي**، شغال معاك فوراً بدون ما تحتاج أي مفتاح خارجي.\n\nتقدر تسألني عن:\n• 🍽️ **أفضل المطاعم الكويتية والريوق**\n• 🛍️ **أشهر المجمعات والأسواق (الأفنيوز، المباركية، 360، العاصمة)**\n• 🗼 **المعالم والمتاحف وأبراج الكويت**\n• 💷 **سعر الدينار الكويتي والعملات**\n• 🗓️ **اقتراح جدول سياحي كامل في الكويت**"
+              : "Welcome to **Kuwait Explorer Pro**! 🇰🇼✨\nI am your **Pipo AI Concierge**, working instantly out-of-the-box.\n\nAsk me about:\n• 🍽️ **Best traditional Kuwaiti restaurants & breakfast**\n• 🛍️ **Top malls & souqs (The Avenues, Mubarakiya, 360, Assima)**\n• 🗼 **Landmarks, museums & Kuwait Towers**\n• 💷 **Kuwaiti Dinar (KWD) exchange rates**\n• 🗓️ **Complete 1, 3, or 5-day itineraries**"
+          }
+        ];
+      },
+
+      setLang(lang) {
+        this.lang = lang;
+        const html = document.getElementById("htmlRoot");
+        html.lang = lang;
+        html.dir = lang === "ar" ? "rtl" : "ltr";
+
+        const btnAr = document.getElementById("langBtnAr");
+        const btnEn = document.getElementById("langBtnEn");
+        if (lang === "ar") {
+          btnAr.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold transition bg-sky-500 text-white";
+          btnEn.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold transition text-sky-200 hover:text-white";
+        } else {
+          btnEn.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold transition bg-sky-500 text-white";
+          btnAr.className = "px-3 py-1.5 rounded-lg text-xs font-extrabold transition text-sky-200 hover:text-white";
+        }
+
+        if (this.chatHistory.length <= 1) {
+          this.resetChatGreeting();
+        }
+        this.renderAll();
+      },
+
+      setTab(tabId) {
+        this.activeTab = tabId;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        this.renderAll();
+      },
+
+      toggleFav(id) {
+        if (this.favorites.includes(id)) {
+          this.favorites = this.favorites.filter(x => x !== id);
+        } else {
+          this.favorites.push(id);
+        }
+        localStorage.setItem("kwt_favs", JSON.stringify(this.favorites));
+        this.renderMain();
+      },
+
+      renderAll() {
+        const t = DATA.ui[this.lang];
+        document.getElementById("brandTitle").textContent = t.brandTitle;
+        document.getElementById("brandSub").textContent = t.brandSub;
+
+        const navHtml = t.tabs.map(tab => {
+          const active = this.activeTab === tab.id;
+          return `<button onclick="App.setTab('${tab.id}')" class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition ${
+            active
+              ? "bg-sky-600 text-white shadow-md shadow-sky-600/25"
+              : "text-slate-600 hover:bg-white hover:text-sky-700"
+          }">
+            <span>${tab.icon}</span>
+            <span>${tab.label}</span>
+          </button>`;
+        }).join("");
+
+        document.getElementById("desktopNav").innerHTML = navHtml;
+        document.getElementById("mobileNav").innerHTML = navHtml;
+
+        this.renderMain();
+      },
+
+      renderMain() {
+        const container = document.getElementById("mainContainer");
+        if (this.activeTab === "home") container.innerHTML = this.renderHome();
+        else if (this.activeTab === "landmarks") container.innerHTML = this.renderLandmarks();
+        else if (this.activeTab === "planner") container.innerHTML = this.renderPlanner();
+        else if (this.activeTab === "heritage") container.innerHTML = this.renderHeritage();
+        else if (this.activeTab === "chat") container.innerHTML = this.renderChat();
+      },
+
+      renderHome() {
+        const t = DATA.ui[this.lang];
+        const isAr = this.lang === "ar";
+
+        const statsHtml = t.stats.map(s => `
+          <div class="bg-white p-6 rounded-3xl border border-sky-100 shadow-sm card-hover">
+            <div class="w-12 h-12 rounded-2xl bg-sky-50 border border-sky-200/70 flex items-center justify-center text-2xl mb-4">
+              ${s.icon}
+            </div>
+            <div class="text-xs font-extrabold text-sky-600 uppercase tracking-wider mb-1">${s.title}</div>
+            <div class="text-2xl font-black text-slate-900 mb-2">${s.val}</div>
+            <p class="text-xs text-slate-500 leading-relaxed">${s.desc}</p>
+          </div>
+        `).join("");
+
+        const currenciesHtml = DATA.currencies.map(c => {
+          const converted = (this.kwdAmount * c.rate).toLocaleString(undefined, { maximumFractionDigits: 2 });
+          return `
+            <div class="bg-sky-50/50 hover:bg-sky-100/60 p-4 rounded-2xl border border-sky-200/70 transition flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">${c.flag}</span>
+                <div>
+                  <div class="text-sm font-black text-slate-900">${c.code}</div>
+                  <div class="text-[11px] text-slate-500 font-medium">${isAr ? c.nameAr : c.nameEn}</div>
+                </div>
+              </div>
+              <div class="text-end">
+                <div class="text-base font-black text-sky-700">${converted}</div>
+                <div class="text-[10px] text-slate-400">1 KWD = ${c.rate} ${c.code}</div>
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        const maxGdp = 200;
+        const gdpBarsHtml = DATA.gdpData.map(d => {
+          const pct = Math.round((d.gdp / maxGdp) * 100);
+          return `
+            <div class="flex flex-col items-center flex-1 gap-2">
+              <span class="text-[11px] font-extrabold text-sky-800 bg-sky-50 px-2 py-0.5 rounded-lg border border-sky-200">${isAr ? d.labelAr : d.labelEn}</span>
+              <div class="w-full max-w-[54px] h-44 bg-sky-50 rounded-2xl flex items-end p-1.5 overflow-hidden border border-sky-200/70">
+                <div class="w-full rounded-xl bg-gradient-to-t from-sky-700 to-cyan-400 transition-all duration-700" style="height: ${pct}%"></div>
+              </div>
+              <span class="text-xs font-black text-slate-700">${d.year}</span>
+            </div>
+          `;
+        }).join("");
+
+        const featuredHtml = DATA.landmarks.slice(0, 4).map(l => this.renderLandmarkCard(l)).join("");
+
+        return `
+          <div class="space-y-10">
+            <!-- Hero Banner with Sky-Blue Theme, Kuwait Towers Backdrop & Kuwait Emblem -->
+            <section class="relative rounded-[2.2rem] overflow-hidden sky-hero-mesh text-white p-8 sm:p-12 md:p-14 shadow-2xl border border-sky-300/30">
+              <img
+                src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?q=80&w=2000&auto=format&fit=crop"
+                alt="Kuwait Towers"
+                class="absolute inset-0 w-full h-full object-cover opacity-25 mix-blend-luminosity"
+              />
+              <div class="absolute inset-0 bg-gradient-to-r from-sky-900/90 via-sky-700/75 to-sky-500/60"></div>
+
+              <div class="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div class="max-w-2xl">
+                  <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/15 border border-white/25 text-sky-100 text-xs font-extrabold mb-5">
+                    ${t.heroBadge}
+                  </div>
+                  <h2 class="text-3xl sm:text-5xl md:text-6xl font-black leading-tight mb-5 drop-shadow">
+                    ${t.heroTitle}
+                  </h2>
+                  <p class="text-sky-50 text-base sm:text-lg leading-relaxed mb-8">
+                    ${t.heroDesc}
+                  </p>
+                  <div class="flex flex-wrap gap-3.5">
+                    <button onclick="App.setTab('landmarks')" class="px-7 py-4 rounded-2xl bg-white text-sky-900 hover:bg-sky-50 font-black text-sm shadow-xl transition transform hover:-translate-y-0.5">
+                      ${t.exploreBtn}
+                    </button>
+                    <button onclick="App.setTab('planner')" class="px-7 py-4 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-sm shadow-xl transition transform hover:-translate-y-0.5">
+                      ${t.planTripBtn}
+                    </button>
+                    <button onclick="App.setTab('chat')" class="px-7 py-4 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/30 text-white font-black text-sm backdrop-blur-md transition">
+                      ${t.askAiBtn}
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Hero Right Emblem & Kuwait Towers Illustration -->
+                <div class="hidden md:flex flex-col items-center justify-center shrink-0">
+                  <div class="w-40 h-40 rounded-full bg-white/10 backdrop-blur-md border-2 border-amber-300/60 flex items-center justify-center p-4 shadow-2xl animate-float">
+                    <svg class="w-full h-full" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="100" cy="100" r="92" fill="#0284c7" stroke="#fde68a" stroke-width="5"/>
+                      <!-- Kuwait Towers Trio -->
+                      <polygon points="95,165 105,165 101,25 99,25" fill="#ffffff"/>
+                      <circle cx="100" cy="105" r="22" fill="#bae6fd" stroke="#ffffff" stroke-width="2"/>
+                      <circle cx="100" cy="62" r="13" fill="#e0f2fe" stroke="#ffffff" stroke-width="2"/>
+                      <polygon points="134,165 142,165 139,55 137,55" fill="#e0f2fe"/>
+                      <circle cx="138" cy="105" r="16" fill="#bae6fd" stroke="#ffffff" stroke-width="2"/>
+                      <polygon points="62,165 68,165 66,75 64,75" fill="#e0f2fe"/>
+                      <!-- Waves -->
+                      <path d="M40 165 Q70 155 100 165 T160 165" fill="none" stroke="#fde68a" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                  <span class="mt-3 text-xs font-extrabold text-sky-100 tracking-wider">🗼 أبراج الكويت • KUWAIT TOWERS</span>
+                </div>
+              </div>
+            </section>
+
+            <!-- 4 Key Highlights -->
+            <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              ${statsHtml}
+            </section>
+
+            <!-- Live KWD Currency Converter + Economic Strength -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <section class="lg:col-span-7 bg-white p-6 sm:p-8 rounded-3xl border border-sky-100 shadow-sm">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                  <div>
+                    <h3 class="text-xl font-black text-slate-900">${t.kwdTitle}</h3>
+                    <p class="text-xs text-slate-500 mt-1">${t.kwdSub}</p>
+                  </div>
+                  <div class="flex items-center gap-2 bg-sky-50 px-3.5 py-2 rounded-2xl border border-sky-200">
+                    <span class="text-xs font-extrabold text-sky-900">${t.kwdAmountLabel}</span>
+                    <input
+                      type="number"
+                      min="1"
+                      step="1"
+                      value="${this.kwdAmount}"
+                      oninput="App.kwdAmount = Math.max(0, parseFloat(this.value) || 0); App.renderMain();"
+                      class="w-24 bg-white border border-sky-300 rounded-xl px-3 py-1 text-sm font-black text-sky-900 text-center focus:outline-none focus:ring-2 focus:ring-sky-500"
+                    />
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  ${currenciesHtml}
+                </div>
+              </section>
+
+              <section class="lg:col-span-5 bg-white p-6 sm:p-8 rounded-3xl border border-sky-100 shadow-sm flex flex-col justify-between">
+                <div>
+                  <h3 class="text-xl font-black text-slate-900">${t.gdpTitle}</h3>
+                  <p class="text-xs text-slate-500 mt-1 mb-6">${t.gdpSub}</p>
+                </div>
+                <div class="flex items-end justify-between gap-2 pt-4">
+                  ${gdpBarsHtml}
+                </div>
+              </section>
+            </div>
+
+            <!-- Featured Destinations Preview -->
+            <section>
+              <div class="flex items-center justify-between mb-6">
+                <div>
+                  <h3 class="text-2xl font-black text-slate-900">${isAr ? "🌟 أبرز معالم ووجهات الكويت" : "🌟 Top Featured Kuwait Destinations"}</h3>
+                  <p class="text-xs text-slate-500 mt-1">${isAr ? "اضغط على أي معلم لفتح موقعه مباشرة على خرائط Google Maps" : "Click any destination for full details & direct Google Maps navigation"}</p>
+                </div>
+                <button onclick="App.setTab('landmarks')" class="px-4 py-2 rounded-xl bg-sky-100 hover:bg-sky-200 text-sky-800 text-xs font-extrabold transition">
+                  ${isAr ? "عرض كل الـ 16 وجهة ←" : "View All 16 Places →"}
+                </button>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                ${featuredHtml}
+              </div>
+            </section>
+          </div>
+        `;
+      },
+
+      renderLandmarkCard(l) {
+        const isAr = this.lang === "ar";
+        const t = DATA.ui[this.lang];
+        const isFav = this.favorites.includes(l.id);
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(l.name.ar + " الكويت")}`;
+
+        return `
+          <div class="bg-white rounded-3xl overflow-hidden border border-sky-100 shadow-sm card-hover flex flex-col">
+            <div class="relative h-52 bg-sky-900 overflow-hidden">
+              <img
+                src="${l.image}"
+                alt="${isAr ? l.name.ar : l.name.en}"
+                onerror="this.style.display='none'"
+                class="w-full h-full object-cover"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-sky-950/80 via-transparent to-transparent"></div>
+              <button
+                onclick="App.toggleFav('${l.id}')"
+                title="Favorite"
+                class="absolute top-3.5 left-3.5 w-9 h-9 rounded-full bg-white/90 backdrop-blur flex items-center justify-center shadow-md hover:scale-110 transition text-base"
+              >
+                ${isFav ? "❤️" : "🤍"}
+              </button>
+              <div class="absolute top-3.5 right-3.5 px-3 py-1 rounded-full bg-sky-700/90 backdrop-blur text-white text-[11px] font-extrabold">
+                ⭐ ${l.rating}
+              </div>
+              <div class="absolute bottom-3 right-3.5 left-3.5 text-white">
+                <div class="text-[11px] text-sky-300 font-bold">${isAr ? l.area.ar : l.area.en}</div>
+                <h4 class="text-lg font-black leading-snug">${isAr ? l.name.ar : l.name.en}</h4>
+              </div>
+            </div>
+
+            <div class="p-5 flex-grow flex flex-col justify-between gap-4">
+              <div class="space-y-2.5">
+                <p class="text-xs text-slate-600 leading-relaxed line-clamp-3">
+                  ${isAr ? l.desc.ar : l.desc.en}
+                </p>
+                <div class="pt-2 border-t border-slate-100 text-[11px] text-slate-500 space-y-1">
+                  <div><strong class="text-slate-700">${t.hoursLabel}</strong> ${isAr ? l.hours.ar : l.hours.en}</div>
+                  <div><strong class="text-slate-700">${t.priceLabel}</strong> ${isAr ? l.price.ar : l.price.en}</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 pt-1">
+                <a
+                  href="${mapsUrl}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex-1 py-2.5 px-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-extrabold text-center transition shadow-sm"
+                >
+                  ${t.openMapsBtn}
+                </a>
+                <button
+                  onclick="App.openModal('${l.id}')"
+                  class="py-2.5 px-3 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-900 text-xs font-extrabold transition"
+                >
+                  ${t.detailsBtn}
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      },
+
+      openModal(id) {
+        const l = DATA.landmarks.find(x => x.id === id);
+        if (!l) return;
+        const isAr = this.lang === "ar";
+        const t = DATA.ui[this.lang];
+        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(l.name.ar + " الكويت")}`;
+        const embedUrl = `https://maps.google.com/maps?q=${l.coords}&hl=${this.lang}&z=15&output=embed`;
+
+        const modal = document.getElementById("detailModal");
+        const content = document.getElementById("detailModalContent");
+        content.innerHTML = `
+          <div class="relative h-56 bg-sky-950">
+            <img src="${l.image}" alt="" onerror="this.style.display='none'" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-sky-950/90 via-sky-950/30 to-transparent"></div>
+            <button onclick="App.closeModal()" class="absolute top-4 left-4 w-10 h-10 rounded-full bg-white/90 text-slate-900 font-black flex items-center justify-center shadow-lg hover:bg-white">✕</button>
+            <div class="absolute bottom-4 right-5 left-5 text-white">
+              <span class="px-3 py-1 rounded-full bg-sky-600 text-[11px] font-extrabold">${isAr ? l.area.ar : l.area.en}</span>
+              <h3 class="text-2xl font-black mt-2">${isAr ? l.name.ar : l.name.en}</h3>
+            </div>
+          </div>
+          <div class="p-6 space-y-4">
+            <p class="text-sm text-slate-700 leading-relaxed">${isAr ? l.desc.ar : l.desc.en}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-sky-50/70 p-4 rounded-2xl border border-sky-200/70 text-xs">
+              <div><strong class="text-slate-900">${t.hoursLabel}</strong> <span class="text-slate-600">${isAr ? l.hours.ar : l.hours.en}</span></div>
+              <div><strong class="text-slate-900">${t.priceLabel}</strong> <span class="text-slate-600">${isAr ? l.price.ar : l.price.en}</span></div>
+            </div>
+            <div class="rounded-2xl overflow-hidden border border-sky-200 h-56 bg-slate-100">
+              <iframe src="${embedUrl}" class="w-full h-full border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <div class="flex items-center justify-end gap-3 pt-2">
+              <a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-extrabold shadow-md">
+                ${t.openMapsBtn} ↗
+              </a>
+              <button onclick="App.closeModal()" class="px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-extrabold">
+                ${isAr ? "إغلاق" : "Close"}
+              </button>
+            </div>
+          </div>
+        `;
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      },
+
+      closeModal() {
+        const modal = document.getElementById("detailModal");
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      },
+
+      renderLandmarks() {
+        const t = DATA.ui[this.lang];
+        const isAr = this.lang === "ar";
+
+        const catPills = DATA.categories.map(c => {
+          const active = this.selectedCategory === c.id;
+          return `<button onclick="App.selectedCategory='${c.id}'; App.renderMain();" class="px-4 py-2.5 rounded-2xl text-xs font-extrabold transition ${
+            active ? "bg-sky-600 text-white shadow-md" : "bg-white text-slate-700 border border-sky-200 hover:bg-sky-50"
+          }">${isAr ? c.ar : c.en}</button>`;
+        }).join("");
+
+        const q = this.searchQuery.trim().toLowerCase();
+        const filtered = DATA.landmarks.filter(l => {
+          if (this.selectedCategory !== "all" && l.cat !== this.selectedCategory) return false;
+          if (this.favOnly && !this.favorites.includes(l.id)) return false;
+          if (!q) return true;
+          return (
+            l.name.ar.toLowerCase().includes(q) ||
+            l.name.en.toLowerCase().includes(q) ||
+            l.area.ar.toLowerCase().includes(q) ||
+            l.area.en.toLowerCase().includes(q) ||
+            l.desc.ar.toLowerCase().includes(q) ||
+            l.desc.en.toLowerCase().includes(q)
+          );
+        });
+
+        const cardsHtml = filtered.length
+          ? filtered.map(l => this.renderLandmarkCard(l)).join("")
+          : `<div class="col-span-full bg-white p-12 rounded-3xl text-center border border-sky-200">
+               <div class="text-4xl mb-3">🔍</div>
+               <div class="text-lg font-black text-slate-800">${isAr ? "لا توجد نتائج مطابقة للبحث" : "No matching destinations found"}</div>
+             </div>`;
+
+        return `
+          <div class="space-y-6">
+            <div class="bg-white p-6 rounded-3xl border border-sky-100 shadow-sm space-y-4">
+              <div class="flex flex-col md:flex-row gap-3">
+                <input
+                  type="text"
+                  value="${this.searchQuery}"
+                  oninput="App.searchQuery = this.value; App.renderMain();"
+                  placeholder="${t.searchPlaceholder}"
+                  class="flex-grow bg-sky-50/50 border border-sky-200 rounded-2xl px-5 py-3.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sky-500"
+                />
+                <button
+                  onclick="App.favOnly = !App.favOnly; App.renderMain();"
+                  class="px-5 py-3.5 rounded-2xl text-xs font-extrabold border transition ${
+                    this.favOnly ? "bg-rose-600 text-white border-rose-600" : "bg-sky-50 text-sky-900 border-sky-200 hover:bg-rose-50"
+                  }"
+                >
+                  ${t.favOnlyBtn} (${this.favorites.length})
+                </button>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                ${catPills}
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              ${cardsHtml}
+            </div>
+          </div>
+        `;
+      },
+
+      renderPlanner() {
+        const t = DATA.ui[this.lang];
+        const isAr = this.lang === "ar";
+        const daysList = DATA.itineraries[this.planDays] || DATA.itineraries["3"];
+
+        const daysHtml = daysList.map((d, idx) => `
+          <div class="bg-white p-6 sm:p-8 rounded-3xl border border-sky-100 shadow-sm space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-sky-100 pb-4">
+              <div class="flex items-center gap-3">
+                <span class="w-10 h-10 rounded-2xl bg-sky-600 text-white font-black flex items-center justify-center text-sm">${idx + 1}</span>
+                <h4 class="text-lg font-black text-slate-900">${isAr ? d.dayAr : d.dayEn}</h4>
+              </div>
+              <span class="px-3.5 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs font-extrabold">
+                💰 ${isAr ? "التكلفة التقديرية:" : "Est. Cost:"} ${d.costKwd}
+              </span>
+            </div>
+            <div class="space-y-3">
+              ${d.items.map(item => `
+                <div class="flex items-start gap-3.5 p-3.5 rounded-2xl bg-sky-50/50 border border-sky-100">
+                  <span class="px-2.5 py-1 rounded-lg bg-sky-100 text-sky-900 text-xs font-extrabold whitespace-nowrap">${item.time}</span>
+                  <p class="text-sm font-medium text-slate-800 leading-relaxed">${isAr ? item.ar : item.en}</p>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `).join("");
+
+        return `
+          <div class="space-y-6">
+            <div class="bg-white p-6 sm:p-8 rounded-3xl border border-sky-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 no-print">
+              <div>
+                <h2 class="text-2xl font-black text-slate-900">${t.plannerTitle}</h2>
+                <p class="text-xs text-slate-500 mt-1">${t.plannerSub}</p>
+              </div>
+              <div class="flex flex-wrap items-center gap-3">
+                <div class="flex items-center bg-sky-50 p-1.5 rounded-2xl border border-sky-200">
+                  ${[
+                    { id: "1", ar: "يوم واحد (24 ساعة)", en: "1 Day (24h)" },
+                    { id: "3", ar: "3 أيام (ويكند مثالي)", en: "3 Days (Weekend)" },
+                    { id: "5", ar: "5 أيام (الرحلة الشاملة)", en: "5 Days (Full Tour)" }
+                  ].map(opt => `
+                    <button onclick="App.planDays='${opt.id}'; App.renderMain();" class="px-4 py-2 rounded-xl text-xs font-extrabold transition ${
+                      this.planDays === opt.id ? "bg-sky-600 text-white shadow" : "text-slate-600 hover:text-slate-900"
+                    }">${isAr ? opt.ar : opt.en}</button>
+                  `).join("")}
+                </div>
+                <button onclick="App.copyItinerary()" class="px-4 py-3 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-extrabold transition shadow-sm">
+                  ${t.copyPlanBtn}
+                </button>
+                <button onclick="window.print()" class="px-4 py-3 rounded-2xl bg-sky-950 hover:bg-sky-900 text-white text-xs font-extrabold transition">
+                  ${t.printPlanBtn}
+                </button>
+              </div>
+            </div>
+
+            <div id="copyAlert" class="hidden bg-sky-600 text-white px-5 py-3 rounded-2xl text-xs font-extrabold text-center shadow-lg">
+              ${t.copiedMsg}
+            </div>
+
+            <div class="space-y-5">
+              ${daysHtml}
+            </div>
+          </div>
+        `;
+      },
+
+      copyItinerary() {
+        const isAr = this.lang === "ar";
+        const daysList = DATA.itineraries[this.planDays] || DATA.itineraries["3"];
+        const lines = daysList.map(d => {
+          const header = `${isAr ? d.dayAr : d.dayEn} (${d.costKwd})`;
+          const steps = d.items.map(i => `  • [${i.time}] ${isAr ? i.ar : i.en}`).join("\n");
+          return `${header}\n${steps}`;
+        }).join("\n\n");
+        navigator.clipboard.writeText(lines);
+        const alertEl = document.getElementById("copyAlert");
+        if (alertEl) {
+          alertEl.classList.remove("hidden");
+          setTimeout(() => alertEl.classList.add("hidden"), 2500);
+        }
+      },
+
+      renderHeritage() {
+        const t = DATA.ui[this.lang];
+        const isAr = this.lang === "ar";
+        const q = this.dialectQuery.trim().toLowerCase();
+
+        const filteredDialect = DATA.dialect.filter(d => {
+          if (!q) return true;
+          return d.word.toLowerCase().includes(q) || d.ar.toLowerCase().includes(q) || d.en.toLowerCase().includes(q);
+        });
+
+        const dialectHtml = filteredDialect.map(d => `
+          <div class="bg-sky-50/60 p-5 rounded-2xl border border-sky-200/80 hover:border-sky-400 transition">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <h4 class="text-lg font-black text-sky-900">${d.word}</h4>
+              <span class="text-[11px] font-bold text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-full">${d.pron}</span>
+            </div>
+            <p class="text-xs text-slate-700 leading-relaxed">${isAr ? d.ar : d.en}</p>
+          </div>
+        `).join("");
+
+        return `
+          <div class="space-y-8">
+            <section class="bg-white p-6 sm:p-8 rounded-3xl border border-sky-100 shadow-sm space-y-5">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 class="text-2xl font-black text-slate-900">${t.dialectTitle}</h2>
+                  <p class="text-xs text-slate-500 mt-1">${t.dialectSub}</p>
+                </div>
+                <input
+                  type="text"
+                  value="${this.dialectQuery}"
+                  oninput="App.dialectQuery = this.value; App.renderMain();"
+                  placeholder="${t.dialectSearch}"
+                  class="sm:w-72 bg-sky-50/50 border border-sky-200 rounded-2xl px-4 py-2.5 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-sky-500"
+                />
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                ${dialectHtml}
+              </div>
+            </section>
+
+            <section class="bg-white p-6 sm:p-8 rounded-3xl border border-sky-100 shadow-sm">
+              <h3 class="text-xl font-black text-slate-900 mb-5">${t.emergencyTitle}</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="p-5 rounded-2xl bg-rose-50 border border-rose-200">
+                  <div class="text-2xl mb-2">🚨</div>
+                  <div class="text-xs font-bold text-rose-800">${isAr ? "الطوارئ الموحد (الشرطة والإسعاف)" : "Unified Emergency (Police & Ambulance)"}</div>
+                  <div class="text-2xl font-black text-rose-950 mt-1">112</div>
+                </div>
+                <div class="p-5 rounded-2xl bg-sky-50 border border-sky-200">
+                  <div class="text-2xl mb-2">✈️</div>
+                  <div class="text-xs font-bold text-sky-800">${isAr ? "استعلامات مطار الكويت الدولي" : "Kuwait International Airport"}</div>
+                  <div class="text-2xl font-black text-sky-950 mt-1">161</div>
+                </div>
+                <div class="p-5 rounded-2xl bg-amber-50 border border-amber-200">
+                  <div class="text-2xl mb-2">🌤️</div>
+                  <div class="text-xs font-bold text-amber-800">${isAr ? "أفضل موسم للزيارة والطقس" : "Best Season to Visit"}</div>
+                  <div class="text-sm font-black text-amber-950 mt-1">${isAr ? "من أكتوبر إلى أبريل (15° – 26°C)" : "October to April (15° – 26°C)"}</div>
+                </div>
+                <div class="p-5 rounded-2xl bg-cyan-50 border border-cyan-200">
+                  <div class="text-2xl mb-2">🚕</div>
+                  <div class="text-xs font-bold text-cyan-800">${isAr ? "تطبيقات التوصيل والتنقل المعتمدة" : "Top Local Apps"}</div>
+                  <div class="text-sm font-black text-cyan-950 mt-1">Careem • Talabat • Deliveroo</div>
+                </div>
+              </div>
+            </section>
+          </div>
+        `;
+      },
+
+      renderChat() {
+        const t = DATA.ui[this.lang];
+        const isAr = this.lang === "ar";
+
+        const quickPrompts = isAr
+          ? [
+              "🍽️ شنو أفضل المطاعم الكويتية الشعبية؟",
+              "🛍️ شنو أحسن المجمعات والأسواق في الكويت؟",
+              "🗓️ اقترح لي جدول سياحي 3 أيام في الكويت",
+              "💷 كم يساوي الدينار الكويتي بالدولار والريال والكرون؟",
+              "🗼 كلمني عن أبراج الكويت وسوق المباركية",
+              "🗣️ علمني كلمات باللهجة الكويتية"
+            ]
+          : [
+              "🍽️ Best traditional Kuwaiti restaurants?",
+              "🛍️ Best shopping malls & souqs in Kuwait?",
+              "🗓️ Suggest a 3-day Kuwait itinerary",
+              "💷 What is the Kuwaiti Dinar (KWD) exchange rate?",
+              "🗼 Tell me about Kuwait Towers & Mubarakiya",
+              "🗣️ Teach me common Kuwaiti dialect phrases"
+            ];
+
+        const messagesHtml = this.chatHistory.map(m => {
+          const isUser = m.role === "user";
+          const formatted = m.text
+            .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+            .replace(/\n/g, "<br/>");
+          return `
+            <div class="flex ${isUser ? "justify-end" : "justify-start"}">
+              <div class="max-w-[85%] sm:max-w-[75%] p-4 sm:p-5 rounded-3xl text-sm leading-relaxed shadow-sm ${
+                isUser
+                  ? "bg-sky-600 text-white rounded-br-none"
+                  : "bg-white text-slate-800 border border-sky-200/80 rounded-bl-none"
+              }">
+                ${formatted}
+              </div>
+            </div>
+          `;
+        }).join("");
+
+        return `
+          <div class="max-w-4xl mx-auto bg-white rounded-3xl border border-sky-100 shadow-lg overflow-hidden flex flex-col h-[680px]">
+            <!-- Header -->
+            <div class="sky-hero-mesh p-5 sm:p-6 text-white flex items-center justify-between">
+              <div class="flex items-center gap-3.5">
+                <div class="w-12 h-12 rounded-2xl bg-white/15 border border-white/25 flex items-center justify-center text-2xl">
+                  🤖
+                </div>
+                <div>
+                  <h3 class="font-black text-lg">${t.chatTitle}</h3>
+                  <p class="text-xs text-sky-100 font-medium">${t.chatSub}</p>
+                </div>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-white/20 border border-white/30 text-white text-[11px] font-extrabold">
+                ⚡ Online 24/7
+              </span>
+            </div>
+
+            <!-- Quick Suggestion Pills -->
+            <div class="px-4 py-3 bg-sky-50 border-b border-sky-100 flex items-center gap-2 overflow-x-auto custom-scroll">
+              ${quickPrompts.map(q => `
+                <button onclick="App.askBot('${q.replace(/'/g, "\\'")}')" class="px-3.5 py-1.5 rounded-full bg-white hover:bg-sky-100 border border-sky-200 text-sky-900 text-xs font-bold whitespace-nowrap transition shadow-sm">
+                  ${q}
+                </button>
+              `).join("")}
+            </div>
+
+            <!-- Messages Stream -->
+            <div id="chatScrollBox" class="flex-grow overflow-y-auto p-5 space-y-4 bg-sky-50/30 custom-scroll">
+              ${messagesHtml}
+            </div>
+
+            <!-- Input Bar -->
+            <div class="p-4 bg-white border-t border-sky-100 flex items-center gap-3">
+              <input
+                id="chatInputBox"
+                type="text"
+                onkeydown="if(event.key==='Enter') App.submitChat()"
+                placeholder="${t.chatInputPlaceholder}"
+                class="flex-grow bg-sky-50/60 border border-sky-200 rounded-2xl px-5 py-3.5 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sky-500"
+              />
+              <button
+                onclick="App.submitChat()"
+                class="px-6 py-3.5 rounded-2xl bg-sky-600 hover:bg-sky-700 text-white text-sm font-extrabold shadow-md transition"
+              >
+                ${t.sendBtn}
+              </button>
+            </div>
+          </div>
+        `;
+      },
+
+      submitChat() {
+        const input = document.getElementById("chatInputBox");
+        if (!input || !input.value.trim()) return;
+        this.askBot(input.value.trim());
+      },
+
+      askBot(question) {
+        this.chatHistory.push({ role: "user", text: question });
+        const reply = this.generateSmartAnswer(question);
+        this.chatHistory.push({ role: "ai", text: reply });
+        this.renderMain();
+        setTimeout(() => {
+          const box = document.getElementById("chatScrollBox");
+          if (box) box.scrollTop = box.scrollHeight;
+        }, 50);
+      },
+
+      generateSmartAnswer(q) {
+        const s = q.toLowerCase();
+        const isAr = this.lang === "ar";
+
+        if (s.includes("مطعم") || s.includes("مطاعم") || s.includes("أكل") || s.includes("ريوق") || s.includes("غداء") || s.includes("restaurant") || s.includes("food") || s.includes("dining")) {
+          return isAr
+            ? "🍽️ **أفضل المطاعم في دولة الكويت (مجربة وموصى بها):**\n\n1. **مطعم فريج صويلح** (السالمية / المباركية / الأفنيوز): الأول في المجبوس الكويتي، مطبق الزبيدي، القبوط، واللقيمات.\n2. **مطعم دار حمد** (السالمية — شارع البلاجات): أرقى مكان للريوق الكويتي على البحر والمطبخ الكويتي المطور.\n3. **مطعم ميس الغانم** (شرق — يم أبراج الكويت): عراقة منذ 1953 للمشويات والبحريات.\n4. **سوق المباركية** (المطاعم الشعبية في الهواء الطلق): كباب ومشويات وحلوى كويتية بأسعار ممتازة."
+            : "🍽️ **Top Recommended Restaurants in Kuwait:**\n\n1. **Freej Swaeleh** (Salmiya / Mubarakiya / Avenues): Famous for authentic Machboos, Mutabbaq Zubaidi (silver pomfret), and Luqaimat.\n2. **Dar Hamad** (Salmiya Beachfront): Premier destination for royal Kuwaiti breakfast overlooking the Arabian Gulf.\n3. **Mais Alghanim** (Sharq near Kuwait Towers): Legendary family dining since 1953.\n4. **Souq Al-Mubarakiya Open-Air Grills**: Unbeatable traditional atmosphere and prices.";
+        }
+
+        if (s.includes("مجمع") || s.includes("تسوق") || s.includes("مول") || s.includes("سوق") || s.includes("افنيوز") || s.includes("أفنيوز") || s.includes("mall") || s.includes("shop") || s.includes("souq")) {
+          return isAr
+            ? "🛍️ **أشهر وجهات التسوق والأسواق في الكويت:**\n\n1. **مجمع الأفنيوز (The Avenues)**: أحد أكبر مجمعات العالم (+1,100 متجر ومطعم، غراند أفنيو، برستيج، السوق).\n2. **سوق المباركية التراثي**: قلب الكويت التاريخي للبخور، العود، الذهب، والتمور.\n3. **مجمع 360 (360 Mall)**: الفخامة العالمية والحدائق العمودية وقاعة الأرينا.\n4. **العاصمة مول (Al Assima Mall)**: أحدث مول في قلب العاصمة شرق مع حديقة معلقة.\n5. **مجمع الكوت (Al Kout)**: أجمل وجهة بحرية في الفحيحيل مع مرسى اليخوت."
+            : "🛍️ **Best Shopping Malls & Souqs in Kuwait:**\n\n1. **The Avenues**: One of the world's largest malls with 1,100+ stores, Grand Avenue & Prestige.\n2. **Souq Al-Mubarakiya**: 200-year-old heritage market for oud, gold, dates & spices.\n3. **360 Mall**: Designer luxury & vertical gardens.\n4. **Al Assima Mall**: Downtown Kuwait City with rooftop gardens.\n5. **Al Kout Mall**: Waterfront shopping & marina in Fahaheel.";
+        }
+
+        if (s.includes("جدول") || s.includes("يوم") || s.includes("أيام") || s.includes("ويكند") || s.includes("رحلة") || s.includes("itinerary") || s.includes("days") || s.includes("plan")) {
+          return isAr
+            ? "🗓️ **جدول سياحي مقترح لمدة 3 أيام في الكويت:**\n\n• **اليوم الأول (قلب العاصمة):** الصباح في أبراج الكويت والمسجد الكبير ← الغداء في سوق المباركية ← المساء في حديقة الشهيد والنافورة الراقصة بمركز جابر الثقافي.\n• **اليوم الثاني (المتاحف والبحر):** ريوق في دار حمد على البحر ← مركز عبدالله السالم الثقافي ← الأكواريوم بالمركز العلمي ← سهرة وتسوق في الأفنيوز.\n• **اليوم الثالث (الجزر والجنوب):** رحلة صباحية لجزيرة فيلكا أو متحف بيت العثمان ← القهوة في العاصمة مول ← المساء في مرسى ومجمع الكوت."
+            : "🗓️ **Recommended 3-Day Kuwait Itinerary:**\n\n• **Day 1 (Capital Icons):** Kuwait Towers & Grand Mosque → Lunch in Souq Al-Mubarakiya → Sunset at Al Shaheed Park & Sheikh Jaber Cultural Centre.\n• **Day 2 (Museums & Coast):** Breakfast at Dar Hamad → Abdullah Al Salem Cultural Centre → Scientific Center Aquarium → Evening at The Avenues.\n• **Day 3 (Heritage & Marina):** Failaka Island or Bait Al-Othman Museum → Al Assima Mall → Sunset at Al Kout Marina.";
+        }
+
+        if (s.includes("دينار") || s.includes("عملة") || s.includes("عمله") || s.includes("دولار") || s.includes("كرون") || s.includes("ريال") || s.includes("kwd") || s.includes("currency") || s.includes("rate")) {
+          return isAr
+            ? "💷 **أسعار صرف الدينار الكويتي (KWD) — أقوى عملة في العالم:**\n\n• **1 دينار كويتي (KWD)** = **3.26 دولار أمريكي (USD)** 🇺🇸\n• **1 دينار كويتي (KWD)** = **3.01 يورو (EUR)** 🇪🇺\n• **1 دينار كويتي (KWD)** = **35.80 كرون نرويجي (NOK)** 🇳🇴\n• **1 دينار كويتي (KWD)** = **12.23 ريال سعودي (SAR)** 🇸🇦\n• **1 دينار كويتي (KWD)** = **11.97 درهم إماراتي (AED)** 🇦🇪\n\n*(تقدر تستخدم حاسبة الدينار التفاعلية في الصفحة الرئيسية لتحويل أي مبلغ فوراً!)*"
+            : "💷 **Kuwaiti Dinar (KWD) Exchange Rates — World's Highest-Valued Currency:**\n\n• **1 KWD** = **3.26 USD** 🇺🇸\n• **1 KWD** = **3.01 EUR** 🇪🇺\n• **1 KWD** = **35.80 NOK** 🇳🇴\n• **1 KWD** = **12.23 SAR** 🇸🇦\n• **1 KWD** = **11.97 AED** 🇦🇪";
+        }
+
+        if (s.includes("لهجة") || s.includes("كلمات") || s.includes("كويتي") || s.includes("dialect") || s.includes("phrases")) {
+          return isAr
+            ? "🗣️ **أشهر عبارات الترحيب واللهجة الكويتية الأصيلة:**\n\n• **قوّة / الله يقوّيك**: تحية كويتية دافئة بكل وقت.\n• **يا هلا ومرحبا / حيّالله من يانا**: للترحيب بالضيف.\n• **عساك على القوّة**: لتقدير الشخص المجتهد.\n• **ما قصّرت / بيّض الله ويهك**: للشكر والامتنان.\n• **تامر أمر / أبشر بعزّك**: لتلبية الطلب بكل كرم."
+            : "🗣️ **Popular Kuwaiti Dialect Phrases:**\n\n• **Gawwah / Allah Ygawwik**: Classic Kuwaiti hello ('May God give you strength').\n• **Hayallah Man Yana**: Warm welcome to guests.\n• **Ma Gassart**: Thank you for going above and beyond.\n• **Abshir Bi'izzak**: Consider it done with honor.";
+        }
+
+        return isAr
+          ? "🇰🇼 **أبشر بعزك!** في دولة الكويت أنصحك دائماً بزيارة **أبراج الكويت**، **سوق المباركية التراثي**، **مركز الشيخ جابر الأحمد الثقافي**، **حديقة الشهيد**، و**مجمع الأفنيوز**.\n\nاضغط على أي سؤال من الأزرار السريعة فوق أو اسألني عن **(المطاعم، المجمعات، العملة، اللهجة الكويتية، أو جدول 3 أيام)** وأجاوبك بالتفصيل فوراً!"
+          : "🇰🇼 **Gladly!** In Kuwait, top must-visit spots include **Kuwait Towers**, **Souq Al-Mubarakiya**, **Sheikh Jaber Cultural Centre**, **Al Shaheed Park**, and **The Avenues**.\n\nClick any quick prompt above or ask me about **restaurants, malls, KWD currency, Kuwaiti dialect, or a 3-day itinerary**!";
+      }
+    };
+
+    window.addEventListener("DOMContentLoaded", () => App.init());
+  </script>
+</body>
 </html>
