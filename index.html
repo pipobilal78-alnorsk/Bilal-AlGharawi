@@ -208,15 +208,15 @@
   <div class="bg-sky-950 text-white py-2 px-4 border-b border-sky-800 no-print">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
       <div class="flex items-center gap-2 text-xs font-bold text-sky-200">
-        <span>🇰🇼</span>
+        <span onclick="App.secretTap()" class="cursor-pointer select-none" title="🇰🇼">🇰🇼</span>
         <span id="topBarWelcome">مرحباً بك في البوابة السياحية والثقافية لدولة الكويت</span>
         <span class="hidden sm:inline text-sky-500">|</span>
         <span class="hidden sm:inline text-amber-300">☀️ 27°C • <span id="kuwaitClock">--:--</span> KWT</span>
       </div>
 
-      <!-- PROMINENT BILINGUAL LANGUAGE SELECTOR + LIVE VISITOR COUNTER -->
+      <!-- PROMINENT BILINGUAL LANGUAGE SELECTOR + OWNER-ONLY LIVE VISITOR COUNTER -->
       <div class="flex flex-wrap items-center gap-2">
-        <button onclick="App.openAnalyticsModal()" class="flex items-center gap-1.5 bg-emerald-600/90 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-xl border border-emerald-400/50 text-xs font-extrabold shadow transition" title="عرض إحصائيات زوار الموقع">
+        <button id="ownerAnalyticsBtnTop" onclick="App.openAnalyticsModal()" class="hidden items-center gap-1.5 bg-emerald-600/90 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-xl border border-emerald-400/50 text-xs font-extrabold shadow transition" title="لوحة المالك السرية لإحصائيات الزوار">
           <span class="w-2 h-2 rounded-full bg-emerald-200 animate-ping"></span>
           <span id="visitorBadgeLabel">👁️ الزوار:</span>
           <span id="liveVisitorCount" class="font-black text-amber-200">...</span>
@@ -290,14 +290,14 @@
         </div>
       </div>
       <div class="text-center md:text-end">
-        <div class="mb-2 flex items-center justify-center md:justify-end">
+        <div id="ownerAnalyticsBtnFooter" class="hidden mb-2 items-center justify-center md:justify-end">
           <button onclick="App.openAnalyticsModal()" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-sky-900 hover:bg-sky-800 border border-sky-700 text-xs font-extrabold text-white transition shadow">
             <span>📊</span>
             <span id="footerStatsBtn">لوحة إحصائيات زوار الموقع الحية</span>
             <span class="px-2 py-0.5 rounded-md bg-emerald-600 text-amber-200 font-black" id="footerVisitorCount">...</span>
           </button>
         </div>
-        <p class="text-xs font-bold text-white">© <span id="footerYear"></span> <span class="text-sky-300">دليل الكويت الشامل • Kuwait Explorer Pro</span></p>
+        <p class="text-xs font-bold text-white"><span onclick="App.promptOwnerPin()" class="cursor-pointer select-none" title="Owner Access">©</span> <span id="footerYear"></span> <span class="text-sky-300">دليل الكويت الشامل • Kuwait Explorer Pro</span></p>
         <p class="text-[11px] text-sky-400 mt-1" id="footerRights">يعمل بالكامل فوراً باللغتين العربية والإنجليزية • Official Public Guide</p>
       </div>
     </div>
@@ -832,7 +832,73 @@
 
         this.resetChatGreeting();
         this.renderAll();
+        this.checkOwnerMode();
         this.initAnalytics();
+      },
+
+      tapCount: 0,
+      tapTimer: null,
+
+      secretTap() {
+        this.tapCount = (this.tapCount || 0) + 1;
+        clearTimeout(this.tapTimer);
+        if (this.tapCount >= 3) {
+          this.tapCount = 0;
+          this.promptOwnerPin();
+          return;
+        }
+        this.tapTimer = setTimeout(() => { this.tapCount = 0; }, 1200);
+      },
+
+      promptOwnerPin() {
+        if (localStorage.getItem("kwt_owner_unlocked") === "1") {
+          this.openAnalyticsModal();
+          return;
+        }
+        const pin = window.prompt("🔐 لوحة المالك الخاصة — أدخل الرقم السري للمالك:");
+        if (pin && (pin.trim() === "1978" || pin.trim().toLowerCase() === "pipo")) {
+          localStorage.setItem("kwt_owner_unlocked", "1");
+          this.showOwnerButtons(true);
+          this.openAnalyticsModal();
+        } else if (pin !== null) {
+          alert("❌ الرقم السري غير صحيح");
+        }
+      },
+
+      lockOwnerMode() {
+        localStorage.removeItem("kwt_owner_unlocked");
+        this.showOwnerButtons(false);
+        this.closeModal();
+      },
+
+      showOwnerButtons(show) {
+        const topBtn = document.getElementById("ownerAnalyticsBtnTop");
+        const footBtn = document.getElementById("ownerAnalyticsBtnFooter");
+        if (topBtn) {
+          topBtn.classList.toggle("hidden", !show);
+          topBtn.classList.toggle("flex", show);
+        }
+        if (footBtn) {
+          footBtn.classList.toggle("hidden", !show);
+          footBtn.classList.toggle("flex", show);
+        }
+      },
+
+      checkOwnerMode() {
+        try {
+          const params = new URLSearchParams(window.location.search);
+          if (params.get("admin") === "1978" || params.get("owner") === "1978") {
+            localStorage.setItem("kwt_owner_unlocked", "1");
+            this.showOwnerButtons(true);
+            setTimeout(() => {
+              this.closeSplash();
+              this.openAnalyticsModal();
+            }, 800);
+            return;
+          }
+        } catch (e) {}
+        const unlocked = localStorage.getItem("kwt_owner_unlocked") === "1";
+        this.showOwnerButtons(unlocked);
       },
 
       async hitOrGetCounter(key, shouldHit) {
@@ -1054,14 +1120,19 @@
             <!-- Active Session Inspector -->
             <div class="bg-sky-950 text-white rounded-2xl p-4 border border-sky-800 flex flex-wrap items-center justify-between gap-3">
               <div>
-                <div class="text-[11px] font-extrabold text-sky-300 mb-0.5">${isAr ? "🕵️‍♂️ بيانات جلستك الحالية الآن:" : "🕵️‍♂️ Your Current Active Session:"}</div>
+                <div class="text-[11px] font-extrabold text-sky-300 mb-0.5">${isAr ? "🕵️‍♂️ بيانات جلستك الحالية الآن (تظهر لك وحدك كمالك الموقع):" : "🕵️‍♂️ Your Current Active Session (Owner Only):"}</div>
                 <div class="text-xs sm:text-sm font-black">
                   ${v.currentFlag} ${v.currentCountry}${v.currentCity ? " (" + v.currentCity + ")" : ""} • ${v.currentDevice}
                 </div>
               </div>
-              <button onclick="App.openAnalyticsModal()" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-black text-xs transition shadow">
-                🔄 ${isAr ? "تحديث الأرقام الآن" : "Refresh Live Numbers"}
-              </button>
+              <div class="flex items-center gap-2">
+                <button onclick="App.openAnalyticsModal()" class="px-4 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-black text-xs transition shadow">
+                  🔄 ${isAr ? "تحديث الأرقام" : "Refresh"}
+                </button>
+                <button onclick="App.lockOwnerMode()" class="px-3 py-2 rounded-xl bg-rose-600/80 hover:bg-rose-600 text-white font-extrabold text-xs transition">
+                  🔒 ${isAr ? "إخفاء زر المالك" : "Hide Owner Mode"}
+                </button>
+              </div>
             </div>
           </div>
         `;
